@@ -1,0 +1,1267 @@
+nohup: ignoring input
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.97it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.97it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.96it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.03it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.01it/s]
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None, 'pad_token_id': 151643}.
+trainable params: 40,370,176 || all params: 7,655,986,688 || trainable%: 0.5273
+None
+  0%|          | 0/20 [00:00<?, ?it/s]--------------------
+Prompt:
+<|im_start|>system
+
+You are playing Wordle, a word-guessing game.
+
+### Game Rules:
+- You have **6 tries** to guess a secret **5-letter** word.
+- Each guess must be a valid **5-letter English word**.
+- After each guess, you will receive feedback indicating how close your guess was.
+
+### Feedback Format:
+Each letter in your guess will receive one of three symbols:
+1. ✓ : The letter is in the word and in the CORRECT position.
+2. - : The letter is in the word but in the WRONG position.
+3. x : The letter is NOT in the word.
+
+### Example:
+Secret Word: BRISK
+
+Guess 1: STORM → Feedback: S(-) T(x) O(x) R(-) M(x)
+Guess 2: BRAVE → Feedback: B(✓) R(✓) A(x) V(x) E(x)
+Guess 3: BRISK → Feedback: B(✓) R(✓) I(✓) S(✓) K(✓)
+
+### Response Format:
+Think through the problem and feedback step by step. Make sure to first add your step by step thought process within <think> </think> tags. Then, return your guessed word in the following format: <guess> guessed-word </guess>.
+<|im_end|>
+<|im_start|>user
+Make a new 5-letter word guess.
+
+ Here is some previous feedback:
+Guess 1: CRANE -> Feedback: C(x) R(x) A(x) N(-) E(x)
+Guess 2: INPUT -> Feedback: I(-) N(-) P(x) U(x) T(-)<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think>
+--------------------
+Response:
+From the first guess "CRANE", we know:
+- C, R, and e are not in the word.
+- N is is not in the correct position, but it isn't fully excluded either.
+
+From the second guess "INPUT", we know:
+- I, N, U, and T are not in the word.
+- P is is correct but not in its position.
+
+We know the secret word cannot contain the letters C, I, N, R, P, U, or T. This leaves us with the letters A, E, and their positions must be considered in subsequent guesses.
+
+The secret word could contain A, E, or other letters. However, we can deduce:
+- A is cannot be the 1st, 2nd, 3rd, 4th, or 5th letter.
+ - E cannot be the 1st, 2nd, 3rd, 4th, or 5th letter.
+ - A cannot be the 1st, 2nd, 3rd, 4th, or 5th letter due to previous inputs.
+
+Let first possible letters we have left, could be any mix, considering the exclusions. Let's try a common 5-letter word that still excludes these.
+</think>
+<guess>FLAKS</guess>
+--------------------
+Extracted Guess:
+flaks
+--------------------
+Answer:
+NINTH
+  5%|▌         | 1/20 [00:13<04:20, 13.72s/it]                                                5%|▌         | 1/20 [00:13<04:20, 13.72s/it]{'loss': 0.046, 'grad_norm': 1.0443226099014282, 'learning_rate': 0.0, 'num_tokens': 1096.0, 'completions/mean_length': 292.0, 'completions/min_length': 273.0, 'completions/max_length': 311.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 292.0, 'completions/min_terminated_length': 273.0, 'completions/max_terminated_length': 311.0, 'rewards/xmlcount_reward_func/mean': -0.17800000309944153, 'rewards/xmlcount_reward_func/std': 0.7820600271224976, 'rewards/soft_format_reward_func/mean': 0.25, 'rewards/soft_format_reward_func/std': 0.3535533845424652, 'rewards/strict_format_reward_func/mean': 0.25, 'rewards/strict_format_reward_func/std': 0.3535533845424652, 'rewards/correctness_reward_func/mean': 0.0, 'rewards/correctness_reward_func/std': 0.0, 'reward': 0.32199999690055847, 'reward_std': 1.4891668558120728, 'frac_reward_zero_std': 0.0, 'entropy': 0.7564040422439575, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.01}
+--------------------
+Prompt:
+<|im_start|>system
+
+You are playing Wordle, a word-guessing game.
+
+### Game Rules:
+- You have **6 tries** to guess a secret **5-letter** word.
+- Each guess must be a valid **5-letter English word**.
+- After each guess, you will receive feedback indicating how close your guess was.
+
+### Feedback Format:
+Each letter in your guess will receive one of three symbols:
+1. ✓ : The letter is in the word and in the CORRECT position.
+2. - : The letter is in the word but in the WRONG position.
+3. x : The letter is NOT in the word.
+
+### Example:
+Secret Word: BRISK
+
+Guess 1: STORM → Feedback: S(-) T(x) O(x) R(-) M(x)
+Guess 2: BRAVE → Feedback: B(✓) R(✓) A(x) V(x) E(x)
+Guess 3: BRISK → Feedback: B(✓) R(✓) I(✓) S(✓) K(✓)
+
+### Response Format:
+Think through the problem and feedback step by step. Make sure to first add your step by step thought process within <think> </think> tags. Then, return your guessed word in the following format: <guess> guessed-word </guess>.
+<|im_end|>
+<|im_start|>user
+Make a new 5-letter word guess.
+
+ Here is some previous feedback:
+Guess 1: CRANE -> Feedback: C(x) R(✓) A(x) N(✓) E(✓)
+Guess 2: BRINE -> Feedback: B(x) R(✓) I(x) N(✓) E(✓)<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think>
+--------------------
+Response:
+1. From Guess 1 (CRANE):
+   - C(x) means C is not in the word
+   - R(✓) means R is in the word and in the correct position
+   - A(x) means A is not in the word
+   - N(✓) means N is in the word and in the correct position
+   - E(✓) means E is in the word and in the correct position
+
+2. From Guess 2 (BRINE):
+   - B(x) means B is not in the word
+   - r(✓) means r is in the word but not in the correct position (it’s already in the secondnd position from the CRAIN feedback)
+   - I(x) means I is not in the word
+   - N(✓) means N is in the word and in the correct position (consistent with CRane)
+   - E(✓) means E is in the word and in the correct position
+
+Combining these two pieces of information:
+- The word must contain r, n, and e.
+- It must not contain c, b, a, i.
+
+3. Let's make an educated guess considering above rules and try for a new word that satisfies these constraints.
+
+A plausible 5-letter word could be: "RaNne".
+
+Let, I will make the guess.
+<guess> RaneE </guess>
+--------------------
+Extracted Guess:
+ranee
+--------------------
+Answer:
+DRONE
+ 10%|█         | 2/20 [00:26<03:56, 13.13s/it]                                               10%|█         | 2/20 [00:26<03:56, 13.13s/it]{'loss': 0.0121, 'grad_norm': 0.9731862545013428, 'learning_rate': 2.5e-06, 'num_tokens': 2192.0, 'completions/mean_length': 292.0, 'completions/min_length': 287.0, 'completions/max_length': 297.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 292.0, 'completions/min_terminated_length': 287.0, 'completions/max_terminated_length': 297.0, 'rewards/xmlcount_reward_func/mean': 0.21700000762939453, 'rewards/xmlcount_reward_func/std': 0.04666904732584953, 'rewards/soft_format_reward_func/mean': 0.0, 'rewards/soft_format_reward_func/std': 0.0, 'rewards/strict_format_reward_func/mean': 0.0, 'rewards/strict_format_reward_func/std': 0.0, 'rewards/correctness_reward_func/mean': 0.0, 'rewards/correctness_reward_func/std': 0.0, 'reward': 0.21700000762939453, 'reward_std': 0.04666904732584953, 'frac_reward_zero_std': 0.0, 'entropy': 0.6773641705513, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.03}
+--------------------
+Prompt:
+<|im_start|>system
+
+You are playing Wordle, a word-guessing game.
+
+### Game Rules:
+- You have **6 tries** to guess a secret **5-letter** word.
+- Each guess must be a valid **5-letter English word**.
+- After each guess, you will receive feedback indicating how close your guess was.
+
+### Feedback Format:
+Each letter in your guess will receive one of three symbols:
+1. ✓ : The letter is in the word and in the CORRECT position.
+2. - : The letter is in the word but in the WRONG position.
+3. x : The letter is NOT in the word.
+
+### Example:
+Secret Word: BRISK
+
+Guess 1: STORM → Feedback: S(-) T(x) O(x) R(-) M(x)
+Guess 2: BRAVE → Feedback: B(✓) R(✓) A(x) V(x) E(x)
+Guess 3: BRISK → Feedback: B(✓) R(✓) I(✓) S(✓) K(✓)
+
+### Response Format:
+Think through the problem and feedback step by step. Make sure to first add your step by step thought process within <think> </think> tags. Then, return your guessed word in the following format: <guess> guessed-word </guess>.
+<|im_end|>
+<|im_start|>user
+Make a new 5-letter word guess.
+
+ Here is some previous feedback:
+Guess 1: CRANE -> Feedback: C(x) R(x) A(-) N(-) E(x)
+Guess 2: BANJO -> Feedback: B(x) A(✓) N(✓) J(x) O(x)<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think>
+--------------------
+Response:
+From Guess 1: CRaneE:
+- C is at
+ - R is
+ - A, N, E are not in the word
+
+From Guess 2: BANjoO:
+ - B is
+ - A (✓) - from both guesses, A must be in the correct position
+ - N (✓) - from both guesses, N must be in the correct position
+ - J is not in the word
+ - O is is
+
+Matching these:
+- B, A, and N are in their correct positions
+ - C, R, and e from the first guess can be excluded
+ - J is also excluded
+ - Only possible letters left are: R, r, j, o
+
+We must now check if r is or o
+
+</think>
+<guess> BANJO </guess>
+--------------------
+Extracted Guess:
+banjo
+--------------------
+Answer:
+MANGA
+ 15%|█▌        | 3/20 [00:37<03:26, 12.13s/it]                                               15%|█▌        | 3/20 [00:37<03:26, 12.13s/it]{'loss': 0.1454, 'grad_norm': 0.8778529763221741, 'learning_rate': 5e-06, 'num_tokens': 3127.0, 'completions/mean_length': 211.5, 'completions/min_length': 168.0, 'completions/max_length': 255.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 211.5, 'completions/min_terminated_length': 168.0, 'completions/max_terminated_length': 255.0, 'rewards/xmlcount_reward_func/mean': 0.3125, 'rewards/xmlcount_reward_func/std': 0.0883883461356163, 'rewards/soft_format_reward_func/mean': 0.25, 'rewards/soft_format_reward_func/std': 0.3535533845424652, 'rewards/strict_format_reward_func/mean': 0.25, 'rewards/strict_format_reward_func/std': 0.3535533845424652, 'rewards/correctness_reward_func/mean': 0.0, 'rewards/correctness_reward_func/std': 0.0, 'reward': 0.8125, 'reward_std': 0.7954951524734497, 'frac_reward_zero_std': 0.0, 'entropy': 0.5231161117553711, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.04}
+--------------------
+Prompt:
+<|im_start|>system
+
+You are playing Wordle, a word-guessing game.
+
+### Game Rules:
+- You have **6 tries** to guess a secret **5-letter** word.
+- Each guess must be a valid **5-letter English word**.
+- After each guess, you will receive feedback indicating how close your guess was.
+
+### Feedback Format:
+Each letter in your guess will receive one of three symbols:
+1. ✓ : The letter is in the word and in the CORRECT position.
+2. - : The letter is in the word but in the WRONG position.
+3. x : The letter is NOT in the word.
+
+### Example:
+Secret Word: BRISK
+
+Guess 1: STORM → Feedback: S(-) T(x) O(x) R(-) M(x)
+Guess 2: BRAVE → Feedback: B(✓) R(✓) A(x) V(x) E(x)
+Guess 3: BRISK → Feedback: B(✓) R(✓) I(✓) S(✓) K(✓)
+
+### Response Format:
+Think through the problem and feedback step by step. Make sure to first add your step by step thought process within <think> </think> tags. Then, return your guessed word in the following format: <guess> guessed-word </guess>.
+<|im_end|>
+<|im_start|>user
+Make a new 5-letter word guess.
+
+ Here is some previous feedback:
+Guess 1: CRANE -> Feedback: C(x) R(x) A(-) N(x) E(x)
+Guess 2: ABOUT -> Feedback: A(-) B(x) O(x) U(x) T(x)<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think>
+--------------------
+Response:
+From Guess 1 (CRANE), we know:
+- C and R are not in the word (C(x) r(x)).
+- A and N are somewhere in the word but not in these positions (A(-) N(-)).
+
+From Guess 2 (ABOUT), we know:
+- B is in the word.
+ - A is not in the word (A(-)).
+ - O, U, and T are in the correct position (O(x) U(x) T(x)).
+
+Since A is cannot be in the word from both clues and it's marked as in the wrong position in the second guess, we should disregard its wrong position.
+Let using these information, we can construct a new guess that satisfies the criteria and hasn't been used yet. Words like "PLAIN" fit the criteria.
+</think>
+<guess> PLAIN </guess>
+--------------------
+Extracted Guess:
+plain
+--------------------
+Answer:
+SAPPY
+ 20%|██        | 4/20 [00:46<02:52, 10.78s/it]                                               20%|██        | 4/20 [00:46<02:52, 10.78s/it]{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 4.962019382530521e-06, 'num_tokens': 4013.0, 'completions/mean_length': 187.0, 'completions/min_length': 175.0, 'completions/max_length': 199.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 187.0, 'completions/min_terminated_length': 175.0, 'completions/max_terminated_length': 199.0, 'rewards/xmlcount_reward_func/mean': 0.375, 'rewards/xmlcount_reward_func/std': 0.0, 'rewards/soft_format_reward_func/mean': 0.5, 'rewards/soft_format_reward_func/std': 0.0, 'rewards/strict_format_reward_func/mean': 0.5, 'rewards/strict_format_reward_func/std': 0.0, 'rewards/correctness_reward_func/mean': 0.0, 'rewards/correctness_reward_func/std': 0.0, 'reward': 1.375, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.5106786489486694, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.05}
+--------------------
+Prompt:
+<|im_start|>system
+
+You are playing Wordle, a word-guessing game.
+
+### Game Rules:
+- You have **6 tries** to guess a secret **5-letter** word.
+- Each guess must be a valid **5-letter English word**.
+- After each guess, you will receive feedback indicating how close your guess was.
+
+### Feedback Format:
+Each letter in your guess will receive one of three symbols:
+1. ✓ : The letter is in the word and in the CORRECT position.
+2. - : The letter is in the word but in the WRONG position.
+3. x : The letter is NOT in the word.
+
+### Example:
+Secret Word: BRISK
+
+Guess 1: STORM → Feedback: S(-) T(x) O(x) R(-) M(x)
+Guess 2: BRAVE → Feedback: B(✓) R(✓) A(x) V(x) E(x)
+Guess 3: BRISK → Feedback: B(✓) R(✓) I(✓) S(✓) K(✓)
+
+### Response Format:
+Think through the problem and feedback step by step. Make sure to first add your step by step thought process within <think> </think> tags. Then, return your guessed word in the following format: <guess> guessed-word </guess>.
+<|im_end|>
+<|im_start|>user
+Make a new 5-letter word guess.
+
+ Here is some previous feedback:
+Guess 1: CRANE -> Feedback: C(x) R(✓) A(✓) N(x) E(x)
+Guess 2: BRASH -> Feedback: B(x) R(✓) A(✓) S(x) H(x)<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think>
+--------------------
+Response:
+1. From Guess 1 (CRANE):
+   - C is not in the word.
+   - R and A are in the word but are in the correct positions.
+   - N and E are not in the word.
+
+2. From Guess 2 (BRASH):
+   - B is not in the word.
+   - R and A are already known to be in the correct positions.
+   - S is is not in the correct position (since R is in 1st position and comes before S in the word).
+   - H is not in the word.
+
+Based on this information, the word must contain r, a, and a, but these letters should be in their positions and the presence of no other repeated letters.
+
+Let the word contains 5 distinct letters (given no repetition from previous guesses besides r and a), I can deduce that it must contain: b, r, a, s, h - and those letters will need to be ordered:.
+</think>
+<guess> BASSO </guess>
+--------------------
+Extracted Guess:
+basso
+--------------------
+Answer:
+FRAIL
+ 25%|██▌       | 5/20 [00:58<02:48, 11.26s/it]                                               25%|██▌       | 5/20 [00:58<02:48, 11.26s/it]{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 4.849231551964771e-06, 'num_tokens': 5018.0, 'completions/mean_length': 246.5, 'completions/min_length': 211.0, 'completions/max_length': 282.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 246.5, 'completions/min_terminated_length': 211.0, 'completions/max_terminated_length': 282.0, 'rewards/xmlcount_reward_func/mean': 0.375, 'rewards/xmlcount_reward_func/std': 0.0, 'rewards/soft_format_reward_func/mean': 0.5, 'rewards/soft_format_reward_func/std': 0.0, 'rewards/strict_format_reward_func/mean': 0.5, 'rewards/strict_format_reward_func/std': 0.0, 'rewards/correctness_reward_func/mean': 0.0, 'rewards/correctness_reward_func/std': 0.0, 'reward': 1.375, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.8943688273429871, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.07}
+--------------------
+Prompt:
+<|im_start|>system
+
+You are playing Wordle, a word-guessing game.
+
+### Game Rules:
+- You have **6 tries** to guess a secret **5-letter** word.
+- Each guess must be a valid **5-letter English word**.
+- After each guess, you will receive feedback indicating how close your guess was.
+
+### Feedback Format:
+Each letter in your guess will receive one of three symbols:
+1. ✓ : The letter is in the word and in the CORRECT position.
+2. - : The letter is in the word but in the WRONG position.
+3. x : The letter is NOT in the word.
+
+### Example:
+Secret Word: BRISK
+
+Guess 1: STORM → Feedback: S(-) T(x) O(x) R(-) M(x)
+Guess 2: BRAVE → Feedback: B(✓) R(✓) A(x) V(x) E(x)
+Guess 3: BRISK → Feedback: B(✓) R(✓) I(✓) S(✓) K(✓)
+
+### Response Format:
+Think through the problem and feedback step by step. Make sure to first add your step by step thought process within <think> </think> tags. Then, return your guessed word in the following format: <guess> guessed-word </guess>.
+<|im_end|>
+<|im_start|>user
+Make a new 5-letter word guess.
+
+ Here is some previous feedback:
+Guess 1: CRANE -> Feedback: C(-) R(-) A(x) N(x) E(-)
+Guess 2: RELIC -> Feedback: R(-) E(✓) L(x) I(x) C(-)<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think>
+--------------------
+Response:
+From the feedback:
+1. CRANE:
+   - C is not in the word
+   - R is not in the word
+   - A is not in the word
+   - N is not in the word
+   - E is not in the word
+
+2. RELIC:
+   - R is in the word (position 2)
+   - E is in the word (position 1, but we already knew this from Cranene)
+   - L is not in the word
+   - I is not in the word
+   - C is is not in the word
+
+Based on these, I can infer:
+- The letter 'r' is in the second position.
+ - The letter 'e' is in the first position.
+ - Neither 'l', 'i' nor 'c' are in the word.
+ - 'n' and 'a' from Craneen are also not in the word, and 'c' isn't, so we're a bit clearer on letters.
+
+I'll prioritize finding a word that fits when we already know what isn't present.
+
+ <guess> STRAP </guess>
+--------------------
+Extracted Guess:
+strap
+--------------------
+Answer:
+PERCH
+ 30%|███       | 6/20 [01:08<02:31, 10.84s/it]                                               30%|███       | 6/20 [01:08<02:31, 10.84s/it]{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 4.665063509461098e-06, 'num_tokens': 5956.0, 'completions/mean_length': 213.0, 'completions/min_length': 195.0, 'completions/max_length': 231.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 213.0, 'completions/min_terminated_length': 195.0, 'completions/max_terminated_length': 231.0, 'rewards/xmlcount_reward_func/mean': 0.25, 'rewards/xmlcount_reward_func/std': 0.0, 'rewards/soft_format_reward_func/mean': 0.0, 'rewards/soft_format_reward_func/std': 0.0, 'rewards/strict_format_reward_func/mean': 0.0, 'rewards/strict_format_reward_func/std': 0.0, 'rewards/correctness_reward_func/mean': 0.0, 'rewards/correctness_reward_func/std': 0.0, 'reward': 0.25, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.6930001974105835, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.08}
+--------------------
+Prompt:
+<|im_start|>system
+
+You are playing Wordle, a word-guessing game.
+
+### Game Rules:
+- You have **6 tries** to guess a secret **5-letter** word.
+- Each guess must be a valid **5-letter English word**.
+- After each guess, you will receive feedback indicating how close your guess was.
+
+### Feedback Format:
+Each letter in your guess will receive one of three symbols:
+1. ✓ : The letter is in the word and in the CORRECT position.
+2. - : The letter is in the word but in the WRONG position.
+3. x : The letter is NOT in the word.
+
+### Example:
+Secret Word: BRISK
+
+Guess 1: STORM → Feedback: S(-) T(x) O(x) R(-) M(x)
+Guess 2: BRAVE → Feedback: B(✓) R(✓) A(x) V(x) E(x)
+Guess 3: BRISK → Feedback: B(✓) R(✓) I(✓) S(✓) K(✓)
+
+### Response Format:
+Think through the problem and feedback step by step. Make sure to first add your step by step thought process within <think> </think> tags. Then, return your guessed word in the following format: <guess> guessed-word </guess>.
+<|im_end|>
+<|im_start|>user
+Make a new 5-letter word guess.
+
+ Here is some previous feedback:
+Guess 1: CRANE -> Feedback: C(x) R(-) A(x) N(x) E(-)
+Guess 2: REBUT -> Feedback: R(✓) E(-) B(x) U(x) T(x)<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think>
+--------------------
+Response:
+From the feedback of the first guess (CRANE):
+- C is is NOT in the word (C(x))
+- R is in the wrong position or not in the word (R(-))
+ - A is NOT in the word (A(x))
+ - N is NOT in the word (N(x))
+ - E is NOT in the word (E(-))
+
+From the second guess (REBUT):
+- r is in the correct position (r(✓))
+ - E is NOT in the word (E(-))
+ - B is in the wrong position or not in the word (B(x))
+ - U is in the wrong position or not in the word (U(x))
+ - T is in the wrong position or not in the word (T(x))
+
+Both c and r are in the word and in the first position, so the first letter must be R. The second letter must be r. Let's try to guess with the letters b, e, n, t, and u.
+
+I'll try the word "RENET".
+
+<guess> Rernet </guess>
+--------------------
+Extracted Guess:
+
+--------------------
+Answer:
+ROGER
+ 35%|███▌      | 7/20 [01:20<02:25, 11.20s/it]                                               35%|███▌      | 7/20 [01:20<02:25, 11.20s/it]{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 4.415111107797445e-06, 'num_tokens': 6963.0, 'completions/mean_length': 247.5, 'completions/min_length': 218.0, 'completions/max_length': 277.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 247.5, 'completions/min_terminated_length': 218.0, 'completions/max_terminated_length': 277.0, 'rewards/xmlcount_reward_func/mean': 0.25, 'rewards/xmlcount_reward_func/std': 0.0, 'rewards/soft_format_reward_func/mean': 0.0, 'rewards/soft_format_reward_func/std': 0.0, 'rewards/strict_format_reward_func/mean': 0.0, 'rewards/strict_format_reward_func/std': 0.0, 'rewards/correctness_reward_func/mean': 0.0, 'rewards/correctness_reward_func/std': 0.0, 'reward': 0.25, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.572171688079834, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.09}
+--------------------
+Prompt:
+<|im_start|>system
+
+You are playing Wordle, a word-guessing game.
+
+### Game Rules:
+- You have **6 tries** to guess a secret **5-letter** word.
+- Each guess must be a valid **5-letter English word**.
+- After each guess, you will receive feedback indicating how close your guess was.
+
+### Feedback Format:
+Each letter in your guess will receive one of three symbols:
+1. ✓ : The letter is in the word and in the CORRECT position.
+2. - : The letter is in the word but in the WRONG position.
+3. x : The letter is NOT in the word.
+
+### Example:
+Secret Word: BRISK
+
+Guess 1: STORM → Feedback: S(-) T(x) O(x) R(-) M(x)
+Guess 2: BRAVE → Feedback: B(✓) R(✓) A(x) V(x) E(x)
+Guess 3: BRISK → Feedback: B(✓) R(✓) I(✓) S(✓) K(✓)
+
+### Response Format:
+Think through the problem and feedback step by step. Make sure to first add your step by step thought process within <think> </think> tags. Then, return your guessed word in the following format: <guess> guessed-word </guess>.
+<|im_end|>
+<|im_start|>user
+Make a new 5-letter word guess.
+
+ Here is some previous feedback:
+Guess 1: CRANE -> Feedback: C(x) R(x) A(-) N(x) E(-)
+Guess 2: SWEAT -> Feedback: S(x) W(x) E(-) A(-) T(x)<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think>
+--------------------
+Response:
+For Guess 1: CRANE, the feedback indicates:
+- C is not in the word
+ - R is not in the word
+ - A is not in the right position, but may be in the word 
+ - N is not in the word
+ - E is not in the word
+
+For Guess 2: SWEAT, the feedback indicates:
+ - S is in the word, in the first position
+ - W is in the word, but in the second position
+ - E is not in the word
+ - A is not in the word
+ - T is in the word, in the last position
+
+Given these letters and feedback, the word likely needs the pattern S _ W _ T, with the middle letter being one from the letters A, E, R, which didn't appear in previous guesses and are not repeated.
+<guess> SAWER </guess>
+--------------------
+Extracted Guess:
+sawer
+--------------------
+Answer:
+ALLEY
+ 40%|████      | 8/20 [01:28<02:02, 10.17s/it]                                               40%|████      | 8/20 [01:28<02:02, 10.17s/it]{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 4.106969024216348e-06, 'num_tokens': 7802.0, 'completions/mean_length': 163.5, 'completions/min_length': 146.0, 'completions/max_length': 181.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 163.5, 'completions/min_terminated_length': 146.0, 'completions/max_terminated_length': 181.0, 'rewards/xmlcount_reward_func/mean': 0.25, 'rewards/xmlcount_reward_func/std': 0.0, 'rewards/soft_format_reward_func/mean': 0.0, 'rewards/soft_format_reward_func/std': 0.0, 'rewards/strict_format_reward_func/mean': 0.0, 'rewards/strict_format_reward_func/std': 0.0, 'rewards/correctness_reward_func/mean': 0.0, 'rewards/correctness_reward_func/std': 0.0, 'reward': 0.25, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.638935923576355, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.11}
+--------------------
+Prompt:
+<|im_start|>system
+
+You are playing Wordle, a word-guessing game.
+
+### Game Rules:
+- You have **6 tries** to guess a secret **5-letter** word.
+- Each guess must be a valid **5-letter English word**.
+- After each guess, you will receive feedback indicating how close your guess was.
+
+### Feedback Format:
+Each letter in your guess will receive one of three symbols:
+1. ✓ : The letter is in the word and in the CORRECT position.
+2. - : The letter is in the word but in the WRONG position.
+3. x : The letter is NOT in the word.
+
+### Example:
+Secret Word: BRISK
+
+Guess 1: STORM → Feedback: S(-) T(x) O(x) R(-) M(x)
+Guess 2: BRAVE → Feedback: B(✓) R(✓) A(x) V(x) E(x)
+Guess 3: BRISK → Feedback: B(✓) R(✓) I(✓) S(✓) K(✓)
+
+### Response Format:
+Think through the problem and feedback step by step. Make sure to first add your step by step thought process within <think> </think> tags. Then, return your guessed word in the following format: <guess> guessed-word </guess>.
+<|im_end|>
+<|im_start|>user
+Make a new 5-letter word guess.
+
+ Here is some previous feedback:
+Guess 1: CRANE -> Feedback: C(x) R(-) A(✓) N(x) E(-)
+Guess 2: PEARL -> Feedback: P(x) E(✓) A(✓) R(✓) L(x)<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think>
+--------------------
+Response:
+From the feedback:
+1. For the first guess (CRANE):
+   - C(x) → C is not in the word
+   - R(-) → R could be in the correct position or wrong position
+   - A(✓) → A is in the word, but not in position 3
+   - N(x) → N is not in the word
+   - E(-) → E is not in the word
+   
+2. For the second guess (PEARL):
+   - P(x) → P is not in the word
+   - E(✓) → E is in the word, and correctly positioned in position 2
+   - A(✓) → A is in the word and correctly positioned in position 4
+   - R(✓) → R is in the word and correctly positioned in position 3
+   - L(x) → L is not in the word
+
+From this, we have:
+- C and P cannot be in the word.
+- A, E, R, and L have positions: A at 4, E at 2, r at 3, L not in the word.
+- There must be a 5th letter that is not mentioned yet, none of the letters in the guesses repeated in their correct positions.
+
+Let letters in word but not correct position:
+ - B, D, F, G, H, I, K, M, O, Q, S, T, U, V, W, X, Y, Z (any of these could potentially fit)
+
+Based on these constraints, let’s make a new guess.
+<guess>BASER</guess>
+--------------------
+Extracted Guess:
+baser
+--------------------
+Answer:
+REARM
+ 45%|████▌     | 9/20 [01:42<02:06, 11.50s/it]                                               45%|████▌     | 9/20 [01:42<02:06, 11.50s/it]{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 3.7500000000000005e-06, 'num_tokens': 8940.0, 'completions/mean_length': 313.0, 'completions/min_length': 288.0, 'completions/max_length': 338.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 313.0, 'completions/min_terminated_length': 288.0, 'completions/max_terminated_length': 338.0, 'rewards/xmlcount_reward_func/mean': 0.25, 'rewards/xmlcount_reward_func/std': 0.0, 'rewards/soft_format_reward_func/mean': 0.0, 'rewards/soft_format_reward_func/std': 0.0, 'rewards/strict_format_reward_func/mean': 0.0, 'rewards/strict_format_reward_func/std': 0.0, 'rewards/correctness_reward_func/mean': 0.0, 'rewards/correctness_reward_func/std': 0.0, 'reward': 0.25, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.6016823053359985, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.12}
+--------------------
+Prompt:
+<|im_start|>system
+
+You are playing Wordle, a word-guessing game.
+
+### Game Rules:
+- You have **6 tries** to guess a secret **5-letter** word.
+- Each guess must be a valid **5-letter English word**.
+- After each guess, you will receive feedback indicating how close your guess was.
+
+### Feedback Format:
+Each letter in your guess will receive one of three symbols:
+1. ✓ : The letter is in the word and in the CORRECT position.
+2. - : The letter is in the word but in the WRONG position.
+3. x : The letter is NOT in the word.
+
+### Example:
+Secret Word: BRISK
+
+Guess 1: STORM → Feedback: S(-) T(x) O(x) R(-) M(x)
+Guess 2: BRAVE → Feedback: B(✓) R(✓) A(x) V(x) E(x)
+Guess 3: BRISK → Feedback: B(✓) R(✓) I(✓) S(✓) K(✓)
+
+### Response Format:
+Think through the problem and feedback step by step. Make sure to first add your step by step thought process within <think> </think> tags. Then, return your guessed word in the following format: <guess> guessed-word </guess>.
+<|im_end|>
+<|im_start|>user
+Make a new 5-letter word guess.
+
+ Here is some previous feedback:
+Guess 1: CRANE -> Feedback: C(-) R(x) A(x) N(x) E(x)
+Guess 2: MUSIC -> Feedback: M(x) U(x) S(x) I(-) C(-)<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think>
+--------------------
+Response:
+Step 1: Analyze the feedback from the previous guesses.
+- From CRane (1), we learn that R and C are in the wrong positions or not in the word.
+- From MUsic (2), we learn M, U, and C are not in the word in any position.
+
+Step 2: Consider a new 5-letter word that hasn't been used yet and fits the criteria provided.
+- The word should not contain R, c, m, u.
+
+Let I will try to guess a new word that fits these criteria.
+<guess> FIELD </guess>
+--------------------
+Extracted Guess:
+field
+--------------------
+Answer:
+PITCH
+ 50%|█████     | 10/20 [01:52<01:50, 11.08s/it]                                                50%|█████     | 10/20 [01:52<01:50, 11.08s/it]{'loss': -0.2251, 'grad_norm': 1.606604814529419, 'learning_rate': 3.3550503583141726e-06, 'num_tokens': 9807.0, 'completions/mean_length': 177.5, 'completions/min_length': 121.0, 'completions/max_length': 234.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 177.5, 'completions/min_terminated_length': 121.0, 'completions/max_terminated_length': 234.0, 'rewards/xmlcount_reward_func/mean': 0.3125, 'rewards/xmlcount_reward_func/std': 0.0883883461356163, 'rewards/soft_format_reward_func/mean': 0.25, 'rewards/soft_format_reward_func/std': 0.3535533845424652, 'rewards/strict_format_reward_func/mean': 0.25, 'rewards/strict_format_reward_func/std': 0.3535533845424652, 'rewards/correctness_reward_func/mean': 0.0, 'rewards/correctness_reward_func/std': 0.0, 'reward': 0.8125, 'reward_std': 0.7954951524734497, 'frac_reward_zero_std': 0.0, 'entropy': 0.6896389126777649, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.13}
+--------------------
+Prompt:
+<|im_start|>system
+
+You are playing Wordle, a word-guessing game.
+
+### Game Rules:
+- You have **6 tries** to guess a secret **5-letter** word.
+- Each guess must be a valid **5-letter English word**.
+- After each guess, you will receive feedback indicating how close your guess was.
+
+### Feedback Format:
+Each letter in your guess will receive one of three symbols:
+1. ✓ : The letter is in the word and in the CORRECT position.
+2. - : The letter is in the word but in the WRONG position.
+3. x : The letter is NOT in the word.
+
+### Example:
+Secret Word: BRISK
+
+Guess 1: STORM → Feedback: S(-) T(x) O(x) R(-) M(x)
+Guess 2: BRAVE → Feedback: B(✓) R(✓) A(x) V(x) E(x)
+Guess 3: BRISK → Feedback: B(✓) R(✓) I(✓) S(✓) K(✓)
+
+### Response Format:
+Think through the problem and feedback step by step. Make sure to first add your step by step thought process within <think> </think> tags. Then, return your guessed word in the following format: <guess> guessed-word </guess>.
+<|im_end|>
+<|im_start|>user
+Make a new 5-letter word guess.
+
+ Here is some previous feedback:
+Guess 1: CRANE -> Feedback: C(x) R(-) A(x) N(x) E(-)
+Guess 2: REMIT -> Feedback: R(✓) E(✓) M(x) I(x) T(x)<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think>
+--------------------
+Response:
+From the first guess (CRANE):
+
+- C is NOT in the secret word.
+- R is in the secret word, but not in the 2nd position.
+- A is NOT in the secret word.
+ -N is NOT in the secret word.
+ -E is NOT in the secret word.
+
+From the second guess (REMIT):
+
+- r is is in secret word and in correct position 2.
+ -e is is in secret word, but in correct position 1.
+ -m the secret word does not have m.
+ - i the secret word does not have i.
+ -t the secret word does not have t.
+
+Knowing that 'r' and 'e' are part of the correct word, I can incorporate these into my next guess. Let's avoid positions that we already know are correct or incorrect. 
+
+Let guess a new 5-letter word that includes 'r' in the 2nd position and 'e' in the 1st position, while also trying to avoid duplicating any letters or using any already eliminated letters (A, C, I, M, N, T, E in the wrong positions, and C, N, T, E in any position).
+
+A suitable guess could be: GROPE
+</think>
+<guess> GROPE </guess>
+--------------------
+Extracted Guess:
+grope
+--------------------
+Answer:
+REEDY
+ 55%|█████▌    | 11/20 [02:07<01:49, 12.15s/it]                                                55%|█████▌    | 11/20 [02:07<01:49, 12.15s/it]{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 2.9341204441673267e-06, 'num_tokens': 10926.0, 'completions/mean_length': 303.5, 'completions/min_length': 266.0, 'completions/max_length': 341.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 303.5, 'completions/min_terminated_length': 266.0, 'completions/max_terminated_length': 341.0, 'rewards/xmlcount_reward_func/mean': 0.375, 'rewards/xmlcount_reward_func/std': 0.0, 'rewards/soft_format_reward_func/mean': 0.5, 'rewards/soft_format_reward_func/std': 0.0, 'rewards/strict_format_reward_func/mean': 0.5, 'rewards/strict_format_reward_func/std': 0.0, 'rewards/correctness_reward_func/mean': 0.0, 'rewards/correctness_reward_func/std': 0.0, 'reward': 1.375, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.6233622431755066, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.14}
+--------------------
+Prompt:
+<|im_start|>system
+
+You are playing Wordle, a word-guessing game.
+
+### Game Rules:
+- You have **6 tries** to guess a secret **5-letter** word.
+- Each guess must be a valid **5-letter English word**.
+- After each guess, you will receive feedback indicating how close your guess was.
+
+### Feedback Format:
+Each letter in your guess will receive one of three symbols:
+1. ✓ : The letter is in the word and in the CORRECT position.
+2. - : The letter is in the word but in the WRONG position.
+3. x : The letter is NOT in the word.
+
+### Example:
+Secret Word: BRISK
+
+Guess 1: STORM → Feedback: S(-) T(x) O(x) R(-) M(x)
+Guess 2: BRAVE → Feedback: B(✓) R(✓) A(x) V(x) E(x)
+Guess 3: BRISK → Feedback: B(✓) R(✓) I(✓) S(✓) K(✓)
+
+### Response Format:
+Think through the problem and feedback step by step. Make sure to first add your step by step thought process within <think> </think> tags. Then, return your guessed word in the following format: <guess> guessed-word </guess>.
+<|im_end|>
+<|im_start|>user
+Make a new 5-letter word guess.
+
+ Here is some previous feedback:
+Guess 1: CRANE -> Feedback: C(x) R(x) A(x) N(x) E(-)
+Guess 2: SMELT -> Feedback: S(x) M(x) E(-) L(x) T(-)<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think>
+--------------------
+Response:
+From the first guess "CRANE," we have the feedback:
+- C is not in the word
+ - R is not in the word
+ - A is not in the word
+ - N is not in the word
+ - E is not in the word (meaning E could be in the word, but a wrong position)
+
+From the second guess "SMELT," we have the feedback:
+ - S is in the word
+ - M is in the word
+ - E is not in the correct position
+ - L is not in the word
+ - T is not in the word
+
+Let these feedback, E could be a wrong-position letter (considering both CRanes and smelts simultaneous feedback).
+
+ Let's make an educated guess again considering previous letters.
+ <guess> BRISE </guess>
+--------------------
+Extracted Guess:
+brise
+--------------------
+Answer:
+THIEF
+ 60%|██████    | 12/20 [02:16<01:30, 11.26s/it]                                                60%|██████    | 12/20 [02:16<01:30, 11.26s/it]{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 2.5e-06, 'num_tokens': 11812.0, 'completions/mean_length': 187.0, 'completions/min_length': 163.0, 'completions/max_length': 211.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 187.0, 'completions/min_terminated_length': 163.0, 'completions/max_terminated_length': 211.0, 'rewards/xmlcount_reward_func/mean': 0.25, 'rewards/xmlcount_reward_func/std': 0.0, 'rewards/soft_format_reward_func/mean': 0.0, 'rewards/soft_format_reward_func/std': 0.0, 'rewards/strict_format_reward_func/mean': 0.0, 'rewards/strict_format_reward_func/std': 0.0, 'rewards/correctness_reward_func/mean': 0.0, 'rewards/correctness_reward_func/std': 0.0, 'reward': 0.25, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.746468186378479, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.16}
+--------------------
+Prompt:
+<|im_start|>system
+
+You are playing Wordle, a word-guessing game.
+
+### Game Rules:
+- You have **6 tries** to guess a secret **5-letter** word.
+- Each guess must be a valid **5-letter English word**.
+- After each guess, you will receive feedback indicating how close your guess was.
+
+### Feedback Format:
+Each letter in your guess will receive one of three symbols:
+1. ✓ : The letter is in the word and in the CORRECT position.
+2. - : The letter is in the word but in the WRONG position.
+3. x : The letter is NOT in the word.
+
+### Example:
+Secret Word: BRISK
+
+Guess 1: STORM → Feedback: S(-) T(x) O(x) R(-) M(x)
+Guess 2: BRAVE → Feedback: B(✓) R(✓) A(x) V(x) E(x)
+Guess 3: BRISK → Feedback: B(✓) R(✓) I(✓) S(✓) K(✓)
+
+### Response Format:
+Think through the problem and feedback step by step. Make sure to first add your step by step thought process within <think> </think> tags. Then, return your guessed word in the following format: <guess> guessed-word </guess>.
+<|im_end|>
+<|im_start|>user
+Make a new 5-letter word guess.
+
+ Here is some previous feedback:
+Guess 1: CRANE -> Feedback: C(x) R(x) A(-) N(x) E(x)
+Guess 2: BLOAT -> Feedback: B(✓) L(x) O(x) A(-) T(-)<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think>
+--------------------
+Response:
+From the first guess (CRANE):
+- C and R are not in the word (marked x).
+- A and N are not in the word (marked -).
+- E is not in the word (marked x).
+
+From the second guess (BLOAT):
+- B is is in the correct position (✓).
+- L, O, and A are not in the word (-).
+- T is is not in the word (x).
+
+Combining these two pieces of information:
+- B is in the correct first position.
+- C, R, A, N, L, and O are definitely out.
+- E is not in the word, leaving - out for E.
+- No repeated letters have appeared that are not covered by a (x).
+
+With L and O being out and multiple x (-) from the first word, let's test a word with B in the first position and check plausible options that fit the criteria. Let's try:
+
+<guess> BLOST </guess>
+--------------------
+Extracted Guess:
+blost
+--------------------
+Answer:
+BATTY
+ 65%|██████▌   | 13/20 [02:26<01:16, 10.87s/it]                                                65%|██████▌   | 13/20 [02:26<01:16, 10.87s/it]{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 2.0658795558326745e-06, 'num_tokens': 12755.0, 'completions/mean_length': 215.5, 'completions/min_length': 202.0, 'completions/max_length': 229.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 215.5, 'completions/min_terminated_length': 202.0, 'completions/max_terminated_length': 229.0, 'rewards/xmlcount_reward_func/mean': 0.25, 'rewards/xmlcount_reward_func/std': 0.0, 'rewards/soft_format_reward_func/mean': 0.0, 'rewards/soft_format_reward_func/std': 0.0, 'rewards/strict_format_reward_func/mean': 0.0, 'rewards/strict_format_reward_func/std': 0.0, 'rewards/correctness_reward_func/mean': 0.0, 'rewards/correctness_reward_func/std': 0.0, 'reward': 0.25, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.7209658026695251, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.17}
+--------------------
+Prompt:
+<|im_start|>system
+
+You are playing Wordle, a word-guessing game.
+
+### Game Rules:
+- You have **6 tries** to guess a secret **5-letter** word.
+- Each guess must be a valid **5-letter English word**.
+- After each guess, you will receive feedback indicating how close your guess was.
+
+### Feedback Format:
+Each letter in your guess will receive one of three symbols:
+1. ✓ : The letter is in the word and in the CORRECT position.
+2. - : The letter is in the word but in the WRONG position.
+3. x : The letter is NOT in the word.
+
+### Example:
+Secret Word: BRISK
+
+Guess 1: STORM → Feedback: S(-) T(x) O(x) R(-) M(x)
+Guess 2: BRAVE → Feedback: B(✓) R(✓) A(x) V(x) E(x)
+Guess 3: BRISK → Feedback: B(✓) R(✓) I(✓) S(✓) K(✓)
+
+### Response Format:
+Think through the problem and feedback step by step. Make sure to first add your step by step thought process within <think> </think> tags. Then, return your guessed word in the following format: <guess> guessed-word </guess>.
+<|im_end|>
+<|im_start|>user
+Make a new 5-letter word guess.
+
+ Here is some previous feedback:
+Guess 1: CRANE -> Feedback: C(x) R(-) A(x) N(x) E(✓)<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think>
+--------------------
+Response:
+From the feedback on "CRANE":
+- E is in the correct position at index 5.
+
+Now, let's consider our options:
+- C, A, R, and N are not in the word.
+ -E is in the correct position at the last index.
+
+Next, I select the letters that haven't been detected yet: B, D, F, G, H, I, J, K, L, M, P, Q, S, T, U, V, W, X, Y, Z.
+
+I will try to test one of the middle positions with a common vowel, like I or O, since we don't have any information about them being part or not part of the word so far.
+</think>
+<guess> BRIST </guess>
+--------------------
+Extracted Guess:
+brist
+--------------------
+Answer:
+MERGE
+ 70%|███████   | 14/20 [02:33<00:58,  9.74s/it]                                                70%|███████   | 14/20 [02:33<00:58,  9.74s/it]{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 1.6449496416858285e-06, 'num_tokens': 13587.0, 'completions/mean_length': 160.0, 'completions/min_length': 160.0, 'completions/max_length': 160.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 160.0, 'completions/min_terminated_length': 160.0, 'completions/max_terminated_length': 160.0, 'rewards/xmlcount_reward_func/mean': 0.375, 'rewards/xmlcount_reward_func/std': 0.0, 'rewards/soft_format_reward_func/mean': 0.5, 'rewards/soft_format_reward_func/std': 0.0, 'rewards/strict_format_reward_func/mean': 0.5, 'rewards/strict_format_reward_func/std': 0.0, 'rewards/correctness_reward_func/mean': 0.0, 'rewards/correctness_reward_func/std': 0.0, 'reward': 1.375, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.8474477529525757, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.18}
+--------------------
+Prompt:
+<|im_start|>system
+
+You are playing Wordle, a word-guessing game.
+
+### Game Rules:
+- You have **6 tries** to guess a secret **5-letter** word.
+- Each guess must be a valid **5-letter English word**.
+- After each guess, you will receive feedback indicating how close your guess was.
+
+### Feedback Format:
+Each letter in your guess will receive one of three symbols:
+1. ✓ : The letter is in the word and in the CORRECT position.
+2. - : The letter is in the word but in the WRONG position.
+3. x : The letter is NOT in the word.
+
+### Example:
+Secret Word: BRISK
+
+Guess 1: STORM → Feedback: S(-) T(x) O(x) R(-) M(x)
+Guess 2: BRAVE → Feedback: B(✓) R(✓) A(x) V(x) E(x)
+Guess 3: BRISK → Feedback: B(✓) R(✓) I(✓) S(✓) K(✓)
+
+### Response Format:
+Think through the problem and feedback step by step. Make sure to first add your step by step thought process within <think> </think> tags. Then, return your guessed word in the following format: <guess> guessed-word </guess>.
+<|im_end|>
+<|im_start|>user
+Make a new 5-letter word guess.
+
+ Here is some previous feedback:
+Guess 1: CRANE -> Feedback: C(✓) R(✓) A(✓) N(x) E(x)
+Guess 2: CRASH -> Feedback: C(✓) R(✓) A(✓) S(x) H(x)<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think>
+--------------------
+Response:
+- From the first guess CRANE, we know:
+  - C, R, A are correct and in the correct positions.
+  - N and E are not in the word.
+
+- From the second guess CRASH, we know:
+  - C, r, and A are correct but C and r are in the right positions, and A is in the right position.
+  - S and H are not in the word.
+
+Since C, r, and A are already known, and S and H are not in the word, let's use this to make a new guess focusing on the remaining positions and letters.
+
+Let word should contain:
+   - C in the first position
+   - r in the second position
+   - A in the third position
+
+The possible letters for the fourth and fifth positions cannot be S or H. Let's consider other 5-letter words that fit the criteria.
+
+<guess> Craig </guess>
+--------------------
+Extracted Guess:
+craig
+--------------------
+Answer:
+CRACK
+ 75%|███████▌  | 15/20 [02:41<00:46,  9.32s/it]                                                75%|███████▌  | 15/20 [02:41<00:46,  9.32s/it]{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 1.2500000000000007e-06, 'num_tokens': 14462.0, 'completions/mean_length': 181.5, 'completions/min_length': 173.0, 'completions/max_length': 190.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 181.5, 'completions/min_terminated_length': 173.0, 'completions/max_terminated_length': 190.0, 'rewards/xmlcount_reward_func/mean': 0.25, 'rewards/xmlcount_reward_func/std': 0.0, 'rewards/soft_format_reward_func/mean': 0.0, 'rewards/soft_format_reward_func/std': 0.0, 'rewards/strict_format_reward_func/mean': 0.0, 'rewards/strict_format_reward_func/std': 0.0, 'rewards/correctness_reward_func/mean': 0.0, 'rewards/correctness_reward_func/std': 0.0, 'reward': 0.25, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.7869987487792969, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.2}
+--------------------
+Prompt:
+<|im_start|>system
+
+You are playing Wordle, a word-guessing game.
+
+### Game Rules:
+- You have **6 tries** to guess a secret **5-letter** word.
+- Each guess must be a valid **5-letter English word**.
+- After each guess, you will receive feedback indicating how close your guess was.
+
+### Feedback Format:
+Each letter in your guess will receive one of three symbols:
+1. ✓ : The letter is in the word and in the CORRECT position.
+2. - : The letter is in the word but in the WRONG position.
+3. x : The letter is NOT in the word.
+
+### Example:
+Secret Word: BRISK
+
+Guess 1: STORM → Feedback: S(-) T(x) O(x) R(-) M(x)
+Guess 2: BRAVE → Feedback: B(✓) R(✓) A(x) V(x) E(x)
+Guess 3: BRISK → Feedback: B(✓) R(✓) I(✓) S(✓) K(✓)
+
+### Response Format:
+Think through the problem and feedback step by step. Make sure to first add your step by step thought process within <think> </think> tags. Then, return your guessed word in the following format: <guess> guessed-word </guess>.
+<|im_end|>
+<|im_start|>user
+Make a new 5-letter word guess.
+
+ Here is some previous feedback:
+Guess 1: CRANE -> Feedback: C(x) R(x) A(x) N(x) E(✓)
+Guess 2: HOUSE -> Feedback: H(x) O(-) U(x) S(-) E(✓)<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think>
+--------------------
+Response:
+From the feedback on the guesses so far:
+- CRane: C(x) r(x) A(x) N(x) E(✓)
+   - None of the letters in CRane are in the correct position.
+   - The letter E is in the word and in the correct position (5th position).
+- HOUSE: H(x) O(-) U(x) S(-) E(✓)
+   - The letters H, U, and E are not in the word at all.
+   - O and S are not in the correct positions, but but they might be in the word.
+Let the secret word must have:
+   - E in the 5th position.
+   - Exclude H, O, U, and S from being any of the letters.
+   - Include C and R as not being there but not excluded.
+   - Based on the provided feedback, it seems the word could fit patterns like starting or ending with C or R but having them informative about position.
+ Based on these, I'll try a new word that fits the constraints and patterns.
+</think>
+<guess>BRINE</guess>
+--------------------
+Extracted Guess:
+brine
+--------------------
+Answer:
+SMOTE
+ 80%|████████  | 16/20 [02:51<00:38,  9.51s/it]                                                80%|████████  | 16/20 [02:51<00:38,  9.51s/it]{'loss': -0.1611, 'grad_norm': 1.0013004541397095, 'learning_rate': 8.930309757836517e-07, 'num_tokens': 15347.0, 'completions/mean_length': 186.5, 'completions/min_length': 144.0, 'completions/max_length': 229.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 186.5, 'completions/min_terminated_length': 144.0, 'completions/max_terminated_length': 229.0, 'rewards/xmlcount_reward_func/mean': 0.3125, 'rewards/xmlcount_reward_func/std': 0.0883883461356163, 'rewards/soft_format_reward_func/mean': 0.25, 'rewards/soft_format_reward_func/std': 0.3535533845424652, 'rewards/strict_format_reward_func/mean': 0.25, 'rewards/strict_format_reward_func/std': 0.3535533845424652, 'rewards/correctness_reward_func/mean': 0.0, 'rewards/correctness_reward_func/std': 0.0, 'reward': 0.8125, 'reward_std': 0.7954951524734497, 'frac_reward_zero_std': 0.0, 'entropy': 0.8301072716712952, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.21}
+--------------------
+Prompt:
+<|im_start|>system
+
+You are playing Wordle, a word-guessing game.
+
+### Game Rules:
+- You have **6 tries** to guess a secret **5-letter** word.
+- Each guess must be a valid **5-letter English word**.
+- After each guess, you will receive feedback indicating how close your guess was.
+
+### Feedback Format:
+Each letter in your guess will receive one of three symbols:
+1. ✓ : The letter is in the word and in the CORRECT position.
+2. - : The letter is in the word but in the WRONG position.
+3. x : The letter is NOT in the word.
+
+### Example:
+Secret Word: BRISK
+
+Guess 1: STORM → Feedback: S(-) T(x) O(x) R(-) M(x)
+Guess 2: BRAVE → Feedback: B(✓) R(✓) A(x) V(x) E(x)
+Guess 3: BRISK → Feedback: B(✓) R(✓) I(✓) S(✓) K(✓)
+
+### Response Format:
+Think through the problem and feedback step by step. Make sure to first add your step by step thought process within <think> </think> tags. Then, return your guessed word in the following format: <guess> guessed-word </guess>.
+<|im_end|>
+<|im_start|>user
+Make a new 5-letter word guess.
+
+ Here is some previous feedback:
+Guess 1: CRANE -> Feedback: C(-) R(-) A(x) N(x) E(x)
+Guess 2: ROCKY -> Feedback: R(-) O(-) C(-) K(x) Y(x)<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think>
+--------------------
+Response:
+1. From the first guess (CRANE), we know:
+   - CR and e are not in the word.
+   - A is not in the correct position, but it could be a letter in the word.
+   
+2. From the second guess (ROCKY):
+   - R is not in the word.
+   - O, C, K are not in the word.
+   - Y is not in the word.
+
+3. So the letters we know for sure are not in the word are: r, o, c, k, e , y.
+4. Now, let's try to fit the remaining letters into a new 5-letter word. Since A and N are not in their correct positions from the first guess, they could be anywhere except in the positions they were in (4th for N, and 3rd for A).
+5. Let's try a word that has A and N in it, as these are the only remaining possible letters from the first guess results.
+
+I'll make a guess with the word "FATEA".
+<guess> FATEA </guess>
+--------------------
+Extracted Guess:
+fatea
+--------------------
+Answer:
+SCOUR
+ 85%|████████▌ | 17/20 [03:05<00:32, 10.72s/it]                                                85%|████████▌ | 17/20 [03:05<00:32, 10.72s/it]{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 5.848888922025553e-07, 'num_tokens': 16400.0, 'completions/mean_length': 270.5, 'completions/min_length': 226.0, 'completions/max_length': 315.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 270.5, 'completions/min_terminated_length': 226.0, 'completions/max_terminated_length': 315.0, 'rewards/xmlcount_reward_func/mean': 0.25, 'rewards/xmlcount_reward_func/std': 0.0, 'rewards/soft_format_reward_func/mean': 0.0, 'rewards/soft_format_reward_func/std': 0.0, 'rewards/strict_format_reward_func/mean': 0.0, 'rewards/strict_format_reward_func/std': 0.0, 'rewards/correctness_reward_func/mean': 0.0, 'rewards/correctness_reward_func/std': 0.0, 'reward': 0.25, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.7826521396636963, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.22}
+--------------------
+Prompt:
+<|im_start|>system
+
+You are playing Wordle, a word-guessing game.
+
+### Game Rules:
+- You have **6 tries** to guess a secret **5-letter** word.
+- Each guess must be a valid **5-letter English word**.
+- After each guess, you will receive feedback indicating how close your guess was.
+
+### Feedback Format:
+Each letter in your guess will receive one of three symbols:
+1. ✓ : The letter is in the word and in the CORRECT position.
+2. - : The letter is in the word but in the WRONG position.
+3. x : The letter is NOT in the word.
+
+### Example:
+Secret Word: BRISK
+
+Guess 1: STORM → Feedback: S(-) T(x) O(x) R(-) M(x)
+Guess 2: BRAVE → Feedback: B(✓) R(✓) A(x) V(x) E(x)
+Guess 3: BRISK → Feedback: B(✓) R(✓) I(✓) S(✓) K(✓)
+
+### Response Format:
+Think through the problem and feedback step by step. Make sure to first add your step by step thought process within <think> </think> tags. Then, return your guessed word in the following format: <guess> guessed-word </guess>.
+<|im_end|>
+<|im_start|>user
+Make a new 5-letter word guess.
+
+ Here is some previous feedback:
+Guess 1: CRANE -> Feedback: C(x) R(x) A(x) N(x) E(✓)
+Guess 2: HOUSE -> Feedback: H(x) O(x) U(x) S(-) E(✓)<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think>
+--------------------
+Response:
+From Guess 1 (CRANE), we have the following feedback:
+- C is not in the word
+ - R R are not in the word
+ - A is not in the word
+ - N is not in the word
+ - E is in position 5
+
+From Guess 2 (HOUSE), we have the following feedback:
+ - H is not in the word
+ - O is not in the word
+ - U is not in the word
+ - S is in the word but in the wrong position
+ - E is in position 5
+
+Since E is in position 5 is given in both guesses, the secret word must end with 'E'. The only letter we have any certainty about from the previous information is S which is is in the word, but we need to place it somewhere besides position 5.
+
+Let consider words combinations that fit these criteria and check feasibility.
+
+I will make my next guess considering the letters we know are not in the word and which position we know 'E' should be in.
+
+Let my guess will be:
+<think> 
+ - Can't have C, H, O, R, A, N, U at from previous feedback.
+ - Position 5 must be E.
+ - S is in the word but in the wrong position.
+
+Let will guess here: THIVE
+</think>
+<guess> THIVE </guess>
+--------------------
+Extracted Guess:
+thive
+--------------------
+Answer:
+SEIZE
+ 90%|█████████ | 18/20 [03:17<00:22, 11.17s/it]                                                90%|█████████ | 18/20 [03:17<00:22, 11.17s/it]{'loss': -0.0077, 'grad_norm': 1.9365264177322388, 'learning_rate': 3.3493649053890325e-07, 'num_tokens': 17464.0, 'completions/mean_length': 276.0, 'completions/min_length': 273.0, 'completions/max_length': 279.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 276.0, 'completions/min_terminated_length': 273.0, 'completions/max_terminated_length': 279.0, 'rewards/xmlcount_reward_func/mean': 0.29899999499320984, 'rewards/xmlcount_reward_func/std': 0.2842569351196289, 'rewards/soft_format_reward_func/mean': 0.25, 'rewards/soft_format_reward_func/std': 0.3535533845424652, 'rewards/strict_format_reward_func/mean': 0.25, 'rewards/strict_format_reward_func/std': 0.3535533845424652, 'rewards/correctness_reward_func/mean': 0.0, 'rewards/correctness_reward_func/std': 0.0, 'reward': 0.7990000247955322, 'reward_std': 0.9913636445999146, 'frac_reward_zero_std': 0.0, 'entropy': 0.8877652883529663, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.24}
+--------------------
+Prompt:
+<|im_start|>system
+
+You are playing Wordle, a word-guessing game.
+
+### Game Rules:
+- You have **6 tries** to guess a secret **5-letter** word.
+- Each guess must be a valid **5-letter English word**.
+- After each guess, you will receive feedback indicating how close your guess was.
+
+### Feedback Format:
+Each letter in your guess will receive one of three symbols:
+1. ✓ : The letter is in the word and in the CORRECT position.
+2. - : The letter is in the word but in the WRONG position.
+3. x : The letter is NOT in the word.
+
+### Example:
+Secret Word: BRISK
+
+Guess 1: STORM → Feedback: S(-) T(x) O(x) R(-) M(x)
+Guess 2: BRAVE → Feedback: B(✓) R(✓) A(x) V(x) E(x)
+Guess 3: BRISK → Feedback: B(✓) R(✓) I(✓) S(✓) K(✓)
+
+### Response Format:
+Think through the problem and feedback step by step. Make sure to first add your step by step thought process within <think> </think> tags. Then, return your guessed word in the following format: <guess> guessed-word </guess>.
+<|im_end|>
+<|im_start|>user
+Make a new 5-letter word guess.
+
+ Here is some previous feedback:
+Guess 1: CRANE -> Feedback: C(x) R(✓) A(x) N(x) E(✓)
+Guess 2: PRIME -> Feedback: P(x) R(✓) I(✓) M(x) E(✓)<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think>
+--------------------
+Response:
+- From the first guess (CRANE) and feedback, we know: R is correct and in the correct position, E is correct but in the wrong position, and C, A, N are not in the word at all.
+- From the second guess (PRIME) and feedback, we know P and I are correct and in the correct positions, M is correct but in the wrong position, and E is correct but in the correct position.
+- Integrating both, we know R and i are in the 2nd and 3rd positions respectively, and we have the letters p, r, i, m, e to fit into the correct positions for the word.
+ - Since e cannot be the last letter (Guessed in CRane and prime already), the possible arrangements closely matching PRIME or includes letters should be sliding.
+ - Testing PRISM, we see R and i are correct, p and m are correct but in the wrong places, and s and m might fit, but e should be not in last.
+ - Testing PRISM, it fits all perfect as it has r and i in 2 and 3 positions, p and m not in correct places, e out of all given.
+</think>
+<guess> PRISM </guess>
+--------------------
+Extracted Guess:
+prism
+--------------------
+Answer:
+WRITE
+ 95%|█████████▌| 19/20 [03:28<00:11, 11.18s/it]                                                95%|█████████▌| 19/20 [03:28<00:11, 11.18s/it]{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 1.507684480352292e-07, 'num_tokens': 18493.0, 'completions/mean_length': 258.5, 'completions/min_length': 258.0, 'completions/max_length': 259.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 258.5, 'completions/min_terminated_length': 258.0, 'completions/max_terminated_length': 259.0, 'rewards/xmlcount_reward_func/mean': 0.375, 'rewards/xmlcount_reward_func/std': 0.0, 'rewards/soft_format_reward_func/mean': 0.5, 'rewards/soft_format_reward_func/std': 0.0, 'rewards/strict_format_reward_func/mean': 0.5, 'rewards/strict_format_reward_func/std': 0.0, 'rewards/correctness_reward_func/mean': 0.0, 'rewards/correctness_reward_func/std': 0.0, 'reward': 1.375, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.8183853030204773, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.25}
+--------------------
+Prompt:
+<|im_start|>system
+
+You are playing Wordle, a word-guessing game.
+
+### Game Rules:
+- You have **6 tries** to guess a secret **5-letter** word.
+- Each guess must be a valid **5-letter English word**.
+- After each guess, you will receive feedback indicating how close your guess was.
+
+### Feedback Format:
+Each letter in your guess will receive one of three symbols:
+1. ✓ : The letter is in the word and in the CORRECT position.
+2. - : The letter is in the word but in the WRONG position.
+3. x : The letter is NOT in the word.
+
+### Example:
+Secret Word: BRISK
+
+Guess 1: STORM → Feedback: S(-) T(x) O(x) R(-) M(x)
+Guess 2: BRAVE → Feedback: B(✓) R(✓) A(x) V(x) E(x)
+Guess 3: BRISK → Feedback: B(✓) R(✓) I(✓) S(✓) K(✓)
+
+### Response Format:
+Think through the problem and feedback step by step. Make sure to first add your step by step thought process within <think> </think> tags. Then, return your guessed word in the following format: <guess> guessed-word </guess>.
+<|im_end|>
+<|im_start|>user
+Make a new 5-letter word guess.
+
+ Here is some previous feedback:
+Guess 1: CRANE -> Feedback: C(-) R(✓) A(x) N(x) E(-)
+Guess 2: FRECK -> Feedback: F(x) R(✓) E(✓) C(✓) K(✓)<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think>
+--------------------
+Response:
+The available letters from the given words are r, e, c, k (from FRECK with correct positions of r, e, c, k). Since the feedback from CRANE has 'r' and 'c' marked as correct, they are already correct. No other letters seem to align perfectly.
+
+The current letters we have to work with are: r, e, c, k with these positions confirmed. The incorrect letters in Cranes were A, N, E, F, which can be used for elimination.
+
+Considering combinations with r, e, c, k, trying to create a new word with these placements:
+
+- r___r would be invalid as r is already in the correct spot.
+- e___r would not likely form a common English word.
+
+Let we try the following:
+- c_r_k
+ - c_r_e_k
+ - r_c_e_k
+ - c_r_e_c
+
+Some of these are not realistic as English words forms. </think>
+<guess> seek </guess>
+--------------------
+Extracted Guess:
+
+--------------------
+Answer:
+WRECK
+100%|██████████| 20/20 [03:37<00:00, 10.54s/it]                                               100%|██████████| 20/20 [03:37<00:00, 10.54s/it]                                               100%|██████████| 20/20 [03:38<00:00, 10.54s/it]100%|██████████| 20/20 [03:38<00:00, 10.93s/it]
+{'loss': 0.0, 'grad_norm': 0.835698664188385, 'learning_rate': 3.798061746947995e-08, 'num_tokens': 19419.0, 'completions/mean_length': 207.0, 'completions/min_length': 207.0, 'completions/max_length': 207.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 207.0, 'completions/min_terminated_length': 207.0, 'completions/max_terminated_length': 207.0, 'rewards/xmlcount_reward_func/mean': 0.3125, 'rewards/xmlcount_reward_func/std': 0.0883883461356163, 'rewards/soft_format_reward_func/mean': 0.25, 'rewards/soft_format_reward_func/std': 0.3535533845424652, 'rewards/strict_format_reward_func/mean': 0.25, 'rewards/strict_format_reward_func/std': 0.3535533845424652, 'rewards/correctness_reward_func/mean': 0.0, 'rewards/correctness_reward_func/std': 0.0, 'reward': 0.8125, 'reward_std': 0.7954951524734497, 'frac_reward_zero_std': 0.0, 'entropy': 1.018877387046814, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.26}
+{'train_runtime': 218.6197, 'train_samples_per_second': 0.183, 'train_steps_per_second': 0.091, 'train_loss': -0.009517399594187737, 'epoch': 0.26}
