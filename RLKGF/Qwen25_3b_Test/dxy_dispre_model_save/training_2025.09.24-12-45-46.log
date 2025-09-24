@@ -1,0 +1,99 @@
+==========Initial Test==============
+==========epoch: 0 train==============
+Epoch 1: Average PPO Loss = 0.2601
+==========epoch: 0 test==============
+Model saved at /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-12-45-49/model_directory_epoch0_accuracy_0.5631_loss_0.2601
+Saved training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-12-45-49/training_metrics.json
+==========epoch: 1 train==============
+Epoch 2: Average PPO Loss = 0.1792
+==========epoch: 1 test==============
+Model saved at /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-12-45-49/model_directory_epoch1_accuracy_0.6214_loss_0.1792
+Saved training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-12-45-49/training_metrics.json
+==========epoch: 2 train==============
+Epoch 3: Average PPO Loss = 0.0517
+==========epoch: 2 test==============
+Model saved at /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-12-45-49/model_directory_epoch2_accuracy_0.5987_loss_0.0517
+Saved training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-12-45-49/training_metrics.json
+==========epoch: 3 train==============
+Epoch 4: Average PPO Loss = 0.0557
+==========epoch: 3 test==============
+Model saved at /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-12-45-49/model_directory_epoch3_accuracy_0.5922_loss_0.0557
+Saved training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-12-45-49/training_metrics.json
+==========epoch: 4 train==============
+Epoch 5: Average PPO Loss = 0.0598
+==========epoch: 4 test==============
+Model saved at /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-12-45-49/model_directory_epoch4_accuracy_0.6052_loss_0.0598
+Saved training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-12-45-49/training_metrics.json
+==========Initial Test==============
+==========epoch: 0 train==============
+Epoch 1: Average PPO Loss = 0.2309
+==========epoch: 0 test==============
+Model saved at /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-01-46/model_directory_epoch0_accuracy_0.5631_loss_0.2309
+Saved training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-01-46/training_metrics.json
+==========epoch: 1 train==============
+Epoch 2: Average PPO Loss = 66.3008
+==========epoch: 1 test==============
+Saved training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-01-46/training_metrics.json
+==========epoch: 2 train==============
+Epoch 3: Average PPO Loss = 0.8764
+==========epoch: 2 test==============
+Model saved at /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-01-46/model_directory_epoch2_accuracy_0.3592_loss_0.8764
+Saved training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-01-46/training_metrics.json
+==========epoch: 3 train==============
+Epoch 4: Average PPO Loss = 0.8450
+==========epoch: 3 test==============
+Model saved at /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-01-46/model_directory_epoch3_accuracy_0.0259_loss_0.8450
+Saved training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-01-46/training_metrics.json
+==========epoch: 4 train==============
+Epoch 5: Average PPO Loss = 5648950.2856
+==========epoch: 4 test==============
+Saved training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-01-46/training_metrics.json
+==========Initial Test==============
+==========epoch: 0 train==============
+Epoch 1: Average PPO Loss = 0.4855
+==========epoch: 0 test==============
+Model saved at /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-23-20/model_directory_epoch0_accuracy_0.4466_loss_0.4855
+Saved training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-23-20/training_metrics.json
+==========epoch: 1 train==============
+Epoch 2: Average PPO Loss = 0.5119
+==========epoch: 1 test==============
+Saved training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-23-20/training_metrics.json
+==========epoch: 2 train==============
+Epoch 3: Average PPO Loss = 0.5994
+==========epoch: 2 test==============
+Saved training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-23-20/training_metrics.json
+==========epoch: 3 train==============
+Epoch 4: Average PPO Loss = 0.6618
+==========epoch: 3 test==============
+Saved training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-23-20/training_metrics.json
+==========epoch: 4 train==============
+Epoch 5: Average PPO Loss = 0.6567
+==========epoch: 4 test==============
+Model saved at /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-23-20/model_directory_epoch4_accuracy_0.3010_loss_0.6567
+Saved training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-23-20/training_metrics.json
+==========Initial Test==============
+==========epoch: 0 train==============
+Epoch 1: Average PPO Loss = 0.2556
+==========epoch: 0 test==============
+Model saved at /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-38-15/model_directory_epoch0_accuracy_0.5728_loss_0.2556
+Saved training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-38-15/training_metrics.json
+==========epoch: 1 train==============
+Epoch 2: Average PPO Loss = 0.1951
+==========epoch: 1 test==============
+Model saved at /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-38-15/model_directory_epoch1_accuracy_0.6084_loss_0.1951
+Saved training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-38-15/training_metrics.json
+==========epoch: 2 train==============
+Epoch 3: Average PPO Loss = 0.1901
+==========epoch: 2 test==============
+Model saved at /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-38-15/model_directory_epoch2_accuracy_0.6408_loss_0.1901
+Saved training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-38-15/training_metrics.json
+==========epoch: 3 train==============
+Epoch 4: Average PPO Loss = 0.2740
+==========epoch: 3 test==============
+Model saved at /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-38-15/model_directory_epoch3_accuracy_0.5340_loss_0.2740
+Saved training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-38-15/training_metrics.json
+==========epoch: 4 train==============
+Epoch 5: Average PPO Loss = 4.7989
+==========epoch: 4 test==============
+Model saved at /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-38-15/model_directory_epoch4_accuracy_0.4563_loss_4.7989
+Saved training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.09.24-13-38-15/training_metrics.json
