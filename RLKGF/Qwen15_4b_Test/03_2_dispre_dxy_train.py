@@ -1,28 +1,17 @@
 import sys
-import os
-
-print("Current working dir:", os.getcwd())
-print("Script directory:", os.path.dirname(os.path.abspath(__file__)))
-print("sys.path before append:", sys.path)
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-print("sys.path after append:", sys.path)
 
 import argparse
 import ast
-import gc
+import os
 
 import torch
 import random
 import json
 import time
 
-from torch.utils.tensorboard import SummaryWriter
 import numpy as np
 from torch.utils.data import DataLoader
-#from transformers import AutoModelForCausalLM, AutoTokenizer
-from transformers import AutoTokenizer, Qwen2_5_VLForConditionalGeneration
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from utils.utils import *
 from Data.DXY.KG import KGADJ
@@ -34,9 +23,10 @@ from DisPre_RWR_And_GCN.KGReward import KGReward
 from DisPre_RWR_And_GCN.dataset import DialogueDataset, custom_collate_fn
 from DisPre_RWR_And_GCN.qwen_ppo import PPO_KG
 
+
 def set_seed(seed):
     """
-    Set random seeds to ensure reproducibility
+    设置随机种子以保证复现性
     """
     random.seed(seed)
     np.random.seed(seed)
@@ -46,25 +36,26 @@ def set_seed(seed):
     torch.backends.cudnn.deterministic = True  # For deterministic behavior in CUDA
     torch.backends.cudnn.benchmark = False  # Disable the auto-tuner that picks the best algorithm
 
+
 def GetAllSym(goal_set):
     '''
-Output form:
+    输出形式：
     new_goal_test = {
     'train': [
         {
             'current_slots': {
                 'inform_slots': {
-                    'Cough': dialog_config.TRUE,
-                    'Chest tightness and shortness of breath': dialog_config.FALSE,
-                    'Post sternum pain': dialog_config.FALSE,
-                    'Chest tightness': dialog_config.FALSE,
-                    'Hemoptysis': dialog_config.TRUE,
-                    'Coughing sputum': dialog_config.TRUE
+                    '咳嗽': dialog_config.TRUE,
+                    '胸闷气促': dialog_config.FALSE,
+                    '胸骨后疼痛': dialog_config.FALSE,
+                    '胸闷': dialog_config.FALSE,
+                    '咯血': dialog_config.TRUE,
+                    '咳痰': dialog_config.TRUE
                 }
             },
-            'disease_tag': 'esophagealitis'
+            'disease_tag': '食管炎'
         }
-...
+        ...
     ],
     'test': [...]
     }
@@ -104,33 +95,14 @@ Output form:
 
     return new_goal_test
 
-def log_print(message: str, f_log=None):
-    #print(message, flush=True)
-    if f_log:
-        f_log.write(message + "\n")
-        f_log.flush()
 
-timeStr = time.strftime('%Y.%m.%d-%H-%M-%S', time.localtime(time.time()))
-
-# data
+# 数据
 embed_size = 100
 current_path = os.path.abspath(__file__)
-print(current_path)
 father_path = os.path.abspath(os.path.dirname(current_path))
-print(father_path)
 grand_path = os.path.abspath(os.path.dirname(father_path))
-print(grand_path)
-
-log_filename = os.path.join(father_path, "dxy_dispre_model_save", f"training_{timeStr}.log")
-os.makedirs(os.path.dirname(log_filename), exist_ok=True)
-f_log = open(log_filename, "a")  # append mode to keep old logs if any
-# Redirect standard output to log file
-sys.stdout = f_log
-
 DXY_path = os.path.join(grand_path, 'Data', 'DXY', 'dataset_dxy')
-print(DXY_path)
 DXY_Disease = text_to_list(os.path.join(DXY_path, 'diseases_dxy.txt'))
-print(DXY_Disease)
 # print(DXY_Disease)
 DXY_Symptom = text_to_list(os.path.join(DXY_path, 'symptoms_dxy.txt'))
 
@@ -145,48 +117,47 @@ with open(dis_sym_num_to_graph_path, 'r', encoding='utf-8') as f:
 gcn_path = os.path.join(grand_path, 'useful_models', 'DXY_GCN', 'gcn_0.6675.pth.tar')
 slot_set = text_to_dict('{}/slot_set_dxy.txt'.format(DXY_path))  # all slots with symptoms + all disease
 
-# Set seeds
+# 设置种子
 set_seed(1616)
-# device = torch.device("cuda:4" if torch.cuda.is_available() else "cpu")
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:4" if torch.cuda.is_available() else "cpu")
 # KG
 kg = KGADJ(device, len(DXY_Disease), len(DXY_Symptom), DXY_path)
 
 gcn_tem = 1
 rwr_tem = 1
 mu = 0.1
-# Reward Model
+# 奖励模型
 gcn_reward = GCNReward(device, len(DXY_Disease) + len(DXY_Symptom), len(DXY_Disease), kg, slot_set, embed_size, gcn_tem)  # device, kg_node, dis_num, kggraph, slot_set, embed_size=100, temperature=1
 gcn_ = torch.load(gcn_path, map_location=device)
-gcn_reward.load_state_dict(gcn_['state_dict'])  # Load offline training model
+gcn_reward.load_state_dict(gcn_['state_dict'])  # 加载离线训练模型
 # alpha
 alpha = 0.3
-# RWR Reward Model
+# RWR奖励模型
 rwr_reward = RWR(len(DXY_Disease), len(DXY_Symptom), DXY_Disease, DXY_Symptom, slot_set, dis_sym_num_to_graph, kg, device, alpha=alpha, temperature=rwr_tem)
 kg_reward = KGReward(gcn_reward, rwr_reward, mu=mu)
 
-# data
-goal_ = GetAllSym(DXY_goal)
-data_type = 'train'  # Training data
-dataset = DialogueDataset(goal_, data_type)
-dataloader = DataLoader(dataset, batch_size=4, shuffle=True, collate_fn=custom_collate_fn)
-batch_size_ = 4
 
-# Define PPO
+# 数据
+goal_ = GetAllSym(DXY_goal)
+data_type = 'train'  # 训练数据
+dataset = DialogueDataset(goal_, data_type)
+dataloader = DataLoader(dataset, batch_size=8, shuffle=True, collate_fn=custom_collate_fn)
+batch_size_ = 8
+
+# 定义PPO
 # for i in [40 - 5 * j for j in range(9)] + [45]:
 for i in [45 - 5 * j for j in range(9)]:
     # if i == 30:
     #     l_= [3e-5]
     # else:
     #     l_= [1e-5, 2e-5, 3e-5]
-    for l in [1e-5, 2e-5, 6e-6, 9e-6]:
-    # for l in [1e-5]:
+    for l in [1e-5, 2e-6, 6e-6, 9e-6]:
         # LLM
-        # Loading the model
-        # Loading models and word participlers
-        llm_path = "Qwen/Qwen2.5-VL-3B-Instruct"  # LLM Mutual information and final generation
+        # 加载模型
+        # 加载模型和分词器
+        llm_path = "/Qwen1.5-4B-Chat/"  # LLM 互信息及最后生成
 
-        model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+        model = AutoModelForCausalLM.from_pretrained(
             llm_path,
             torch_dtype="auto",
             device_map=device
@@ -196,71 +167,45 @@ for i in [45 - 5 * j for j in range(9)]:
         lr = l
         dispre_ppo_kg = PPO_KG(model, kg_reward, tokenizer, DXY_Symptom, DXY_Disease, device, lr=lr,
                                update_freq=update_freq)
+        print(dispre_ppo_kg.update_freq)
+        print(dispre_ppo_kg.lr)
 
-        # Timestamp
+        # 时间戳
         timeStr = time.strftime('%Y.%m.%d-%H-%M-%S', time.localtime(time.time()))
-        log_dir = os.path.join(father_path, "runs", f"freq_{update_freq}_lr_{lr}_{timeStr}")
-        writer = SummaryWriter(log_dir=log_dir)
-
-        log_print('========== FREQ, LR:==============', f_log)
-        log_print(f' FREQ {dispre_ppo_kg.update_freq} ', f_log)
-        log_print(f' LR {dispre_ppo_kg.lr} ', f_log)
-        # print('========== FREQ, LR:==============')
-        # print(f' FREQ {dispre_ppo_kg.update_freq}')
-        # print(f' LR {dispre_ppo_kg.lr}')
 
         success_rate = 0.
         train_losses = []
         average_loss = [10000.]
         val_accuracies = []
-
-        log_print('==========Initial Test==============', f_log)
-        # print('==========Initial Test==============')
+        print('==========初始测试==============')
         initial_test_rate = dispre_ppo_kg.eval_step(goal_['test'])
-        for epoch in range(10): # Simplified training cycle 5
-            log_print(f'==========epoch: {epoch+1} train==============', f_log)
-            # print(f'==========epoch: {epoch+1} train==============')
+        for epoch in range(5):  # 简化的训练循环
+            print('==========epoch:' + str(epoch) + '训练==============')
             for batch in dataloader:
                 goals = batch
-                # Perform one-step training
+                # 进行一步训练
                 dispre_ppo_kg.train_step(epoch, timeStr, goals)
 
-            # Average loss per epoch print
-            avg_loss = np.mean(dispre_ppo_kg.losses[-len(dataloader):])  # Calculate the average loss of the current epoch
-
-            writer.add_scalar('Loss/train', avg_loss, epoch + 1)
-
-            log_print(f"Epoch {epoch + 1}: Average PPO Loss = {avg_loss:.4f}", f_log)
-            #print(f"Epoch {epoch + 1}: Average PPO Loss = {avg_loss:.4f}")
+            # 每个epoch打印平均损失
+            avg_loss = np.mean(dispre_ppo_kg.losses[-len(dataloader):])  # 计算当前epoch的平均损失
+            print(f"Epoch {epoch + 1}: Average PPO Loss = {avg_loss:.4f}")
             average_loss.append(avg_loss)
 
-            # # verify
-            log_print(f'==========epoch: {epoch+1} test==============', f_log)
-            #print(f'==========epoch: {epoch+1} test==============')
+            # # 验证
+            print('==========epoch:' + str(epoch) + '测试==============')
             test_rate = dispre_ppo_kg.eval_step(goal_['test'])
-
-            # Log validation accuracy per epoch
-            writer.add_scalar('Accuracy/val', test_rate, epoch + 1)
-
             val_accuracies.append(test_rate)
             if test_rate > success_rate or avg_loss < average_loss[-2] or test_rate > initial_test_rate:
                 success_rate = test_rate
+                # 根据准确率创建保存目录，使用字符串格式化将准确率添加到文件夹名称中
+                model_directory = os.path.join(father_path, "dxy_dispre_model_save", str(timeStr),
+                                               f"model_directory_epoch{epoch}_accuracy_{test_rate:.4f}_loss_{avg_loss:.4f}")
 
-                # Overwrite same folder each time
-                model_directory = os.path.join(father_path, "dxy_dispre_model_save", "best_model")
-
-                # Ensure the directory exists
-                os.makedirs(model_directory, exist_ok=True)
-
-                # Save the model and tokenizer
+                # 保存模型和 tokenizer
                 model.save_pretrained(model_directory)
                 tokenizer.save_pretrained(model_directory)
-                log_print(f"Model saved at {model_directory}", f_log)
-                #print(f"Model saved at {model_directory}")
 
-            # Define this *inside the epoch loop*, after computing test_rate and avg_loss
-            epoch_metrics = {
-                "epoch": epoch,
+            metrics = {
                 "initial_test": initial_test_rate,
                 "update_freq": update_freq,
                 "lr": lr,
@@ -270,39 +215,19 @@ for i in [45 - 5 * j for j in range(9)]:
                 "rwr_tem": rwr_tem,
                 "mu": mu,
                 "gcn": gcn_path,
-                "train_loss": avg_loss,
-                "val_accuracy": test_rate
+                "train_losses": average_loss,
+                "val_accuracies": val_accuracies
             }
+            os.makedirs(os.path.dirname(
+                os.path.join(father_path, "dxy_dispre_model_save", str(timeStr), 'training_metrics.json')),
+                        exist_ok=True)
 
-            metrics_path = os.path.join(father_path, "dxy_dispre_model_save", str(timeStr), 'training_metrics.json')
-            os.makedirs(os.path.dirname(metrics_path), exist_ok=True)
+            with open(os.path.join(father_path, "dxy_dispre_model_save", str(timeStr), 'training_metrics.json'),
+                      'w') as f:
+                json.dump(metrics, f, ensure_ascii=False, indent=4)
+            time.sleep(20)
 
-            # Load existing metrics if file exists
-            if os.path.exists(metrics_path):
-                with open(metrics_path, 'r') as f:
-                    all_metrics = json.load(f)
-            else:
-                all_metrics = []
 
-            # Append current epoch's metrics
-            all_metrics.append(epoch_metrics)
 
-            # Save the updated list back to the file
-            with open(metrics_path, 'w') as f:
-                json.dump(all_metrics, f, ensure_ascii=False, indent=4)
 
-            log_print(f"Appended training metrics to {metrics_path}", f_log)
-            #print(f"Appended training metrics to {metrics_path}")
-            writer.flush()
-            time.sleep(10)
 
-        # === FREE UP MEMORY ===
-        del model
-        del tokenizer
-        del dispre_ppo_kg
-
-        torch.cuda.empty_cache()
-        gc.collect()
-
-f_log.close()
-writer.close()
