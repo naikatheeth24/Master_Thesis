@@ -9,19 +9,17 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 print("sys.path after append:", sys.path)
 
-
-import sys
-import os
-
 import argparse
 import ast
-import os
+import gc
 
 import torch
 import random
 import json
 import time
 
+
+from torch.utils.tensorboard import SummaryWriter
 import numpy as np
 from torch.utils.data import DataLoader
 #from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -115,6 +113,9 @@ def log_print(message: str, f_log=None):
 
 timeStr = time.strftime('%Y.%m.%d-%H-%M-%S', time.localtime(time.time()))
 
+
+
+
 # data
 embed_size = 100
 current_path = os.path.abspath(__file__)
@@ -123,6 +124,8 @@ father_path = os.path.abspath(os.path.dirname(current_path))
 print(father_path)
 grand_path = os.path.abspath(os.path.dirname(father_path))
 print(grand_path)
+
+
 
 log_filename = os.path.join(father_path, "dxy_dispre_model_save", f"training_{timeStr}.log")
 os.makedirs(os.path.dirname(log_filename), exist_ok=True)
@@ -177,12 +180,13 @@ batch_size_ = 8
 
 # Define PPO
 # for i in [40 - 5 * j for j in range(9)] + [45]:
-for i in [45 - 5 * j for j in range(9)]:
+for i in [45 - 5 * j for j in range(2)]:
     # if i == 30:
     #     l_= [3e-5]
     # else:
     #     l_= [1e-5, 2e-5, 3e-5]
-    for l in [1e-5, 2e-5, 6e-6, 9e-6]:
+    #for l in [1e-5, 2e-5, 6e-6, 9e-6]:
+    for l in [1e-5]:
         # LLM
         # Loading the model
         # Loading models and word participlers
@@ -205,12 +209,14 @@ for i in [45 - 5 * j for j in range(9)]:
         dispre_ppo_kg = PPO_KG(model, kg_reward, tokenizer, DXY_Symptom, DXY_Disease, device, lr=lr,
                                update_freq=update_freq)
 
+        # Timestamp
+        timeStr = time.strftime('%Y.%m.%d-%H-%M-%S', time.localtime(time.time()))
+        log_dir = os.path.join(father_path, "runs", f"freq_{update_freq}_lr_{lr}_{timeStr}")
+        writer = SummaryWriter(log_dir=log_dir)
+
         log_print('========== FREQ, LR:==============', f_log)
         log_print(f' FREQ {dispre_ppo_kg.update_freq} ', f_log)
         log_print(f' LR {dispre_ppo_kg.lr} ', f_log)
-
-        # Timestamp
-        timeStr = time.strftime('%Y.%m.%d-%H-%M-%S', time.localtime(time.time()))
 
         success_rate = 0.
         train_losses = []
@@ -219,8 +225,8 @@ for i in [45 - 5 * j for j in range(9)]:
 
         log_print('==========Initial Test==============', f_log)
         initial_test_rate = dispre_ppo_kg.eval_step(goal_['test'])
-        for epoch in range(5): # Simplified training cycle 5
-            log_print(f'==========epoch: {epoch} train==============', f_log)
+        for epoch in range(2): # Simplified training cycle 5
+            log_print(f'==========epoch: {epoch+1} train==============', f_log)
             for batch in dataloader:
                 goals = batch
                 # Perform one-step training
@@ -228,12 +234,19 @@ for i in [45 - 5 * j for j in range(9)]:
 
             # Average loss per epoch print
             avg_loss = np.mean(dispre_ppo_kg.losses[-len(dataloader):])  # Calculate the average loss of the current epoch
+
+            writer.add_scalar('Loss/train', avg_loss, epoch + 1)
+
             log_print(f"Epoch {epoch + 1}: Average PPO Loss = {avg_loss:.4f}", f_log)
             average_loss.append(avg_loss)
 
             # # verify
-            log_print(f'==========epoch: {epoch} test==============', f_log)
+            log_print(f'==========epoch: {epoch+1} test==============', f_log)
             test_rate = dispre_ppo_kg.eval_step(goal_['test'])
+
+            # Log validation accuracy per epoch
+            writer.add_scalar('Accuracy/val', test_rate, epoch + 1)
+
             val_accuracies.append(test_rate)
             if test_rate > success_rate or avg_loss < average_loss[-2] or test_rate > initial_test_rate:
                 success_rate = test_rate
@@ -241,10 +254,16 @@ for i in [45 - 5 * j for j in range(9)]:
                 # model_directory = os.path.join(father_path, "dxy_dispre_model_save", str(timeStr),
                 #                                f"model_directory_epoch{epoch}_accuracy_{test_rate:.4f}_loss_{avg_loss:.4f}")
 
-                # # Save the model and tokenizer
-                # model.save_pretrained(model_directory)
-                # tokenizer.save_pretrained(model_directory)
-                # log_print(f"Model saved at {model_directory}", f_log)
+                # Overwrite same folder each time
+                model_directory = os.path.join(father_path, "dxy_dispre_model_save", "best_model")
+
+                # Ensure the directory exists
+                os.makedirs(model_directory, exist_ok=True)
+
+                # Save the model and tokenizer
+                model.save_pretrained(model_directory)
+                tokenizer.save_pretrained(model_directory)
+                log_print(f"Model saved at {model_directory}", f_log)
 
             # metrics = {
             #     "initial_test": initial_test_rate,
@@ -304,15 +323,23 @@ for i in [45 - 5 * j for j in range(9)]:
                 json.dump(all_metrics, f, ensure_ascii=False, indent=4)
 
             log_print(f"Appended training metrics to {metrics_path}", f_log)
-
+            writer.flush()
             time.sleep(10)
 
+        # === FREE UP MEMORY ===
+        del model
+        del tokenizer
+        del dispre_ppo_kg
 
-model_directory = os.path.join(father_path, "dxy_dispre_model_save", str(timeStr),f"model_directory_epoch{epoch}_accuracy_{test_rate:.4f}_loss_{avg_loss:.4f}")
+        torch.cuda.empty_cache()
+        gc.collect()
 
-# Save the model and tokenizer
-model.save_pretrained(model_directory)
-tokenizer.save_pretrained(model_directory)
-log_print(f"Model saved at {model_directory}", f_log)
+# model_directory = os.path.join(father_path, "dxy_dispre_model_save", str(timeStr),f"model_directory_epoch{epoch}_accuracy_{test_rate:.4f}_loss_{avg_loss:.4f}")
+
+# # Save the model and tokenizer
+# model.save_pretrained(model_directory)
+# tokenizer.save_pretrained(model_directory)
+# log_print(f"Model saved at {model_directory}", f_log)
 
 f_log.close()
+writer.close()
