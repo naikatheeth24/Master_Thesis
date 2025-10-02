@@ -1,0 +1,80 @@
+========== FREQ, LR:==============
+ FREQ 25 
+ LR 9e-06 
+==========Initial Test==============
+success rate eval_step 0.4369
+success rate eval_step 0.4563
+success rate eval_step 0.4272
+==========epoch: 1 train==============
+Epoch 1: Average PPO Loss = 0.1758
+==========epoch: 1 test==============
+success rate eval_step 0.5146
+success rate eval_step 0.5049
+success rate eval_step 0.5146
+Model saved at /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/best_model_25_9e6_bs8_3B
+Appended training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.10.02-11-58-07/training_metrics.json
+==========epoch: 2 train==============
+Epoch 2: Average PPO Loss = 0.9948
+==========epoch: 2 test==============
+success rate eval_step 0.0000
+success rate eval_step 0.0000
+success rate eval_step 0.0000
+Appended training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.10.02-11-58-07/training_metrics.json
+==========epoch: 3 train==============
+Epoch 3: Average PPO Loss = 1.2089
+==========epoch: 3 test==============
+success rate eval_step 0.0000
+success rate eval_step 0.0000
+success rate eval_step 0.0000
+Appended training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.10.02-11-58-07/training_metrics.json
+==========epoch: 4 train==============
+Epoch 4: Average PPO Loss = 1.2537
+==========epoch: 4 test==============
+success rate eval_step 0.0000
+success rate eval_step 0.0000
+success rate eval_step 0.0000
+Appended training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.10.02-11-58-07/training_metrics.json
+==========epoch: 5 train==============
+Epoch 5: Average PPO Loss = 34.9361
+==========epoch: 5 test==============
+success rate eval_step 0.0000
+success rate eval_step 0.0000
+success rate eval_step 0.0000
+Appended training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.10.02-11-58-07/training_metrics.json
+==========epoch: 6 train==============
+Epoch 6: Average PPO Loss = 9.2059
+==========epoch: 6 test==============
+success rate eval_step 0.0000
+success rate eval_step 0.0000
+success rate eval_step 0.0000
+Model saved at /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/best_model_25_9e6_bs8_3B
+Appended training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.10.02-11-58-07/training_metrics.json
+==========epoch: 7 train==============
+Epoch 7: Average PPO Loss = 1.2229
+==========epoch: 7 test==============
+success rate eval_step 0.0000
+success rate eval_step 0.0000
+success rate eval_step 0.0000
+Model saved at /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/best_model_25_9e6_bs8_3B
+Appended training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.10.02-11-58-07/training_metrics.json
+==========epoch: 8 train==============
+Epoch 8: Average PPO Loss = 1.2270
+==========epoch: 8 test==============
+success rate eval_step 0.0000
+success rate eval_step 0.0000
+success rate eval_step 0.0000
+Appended training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.10.02-11-58-07/training_metrics.json
+==========epoch: 9 train==============
+Epoch 9: Average PPO Loss = 1.2536
+==========epoch: 9 test==============
+success rate eval_step 0.0000
+success rate eval_step 0.0000
+success rate eval_step 0.0000
+Appended training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.10.02-11-58-07/training_metrics.json
+==========epoch: 10 train==============
+Epoch 10: Average PPO Loss = 13.5798
+==========epoch: 10 test==============
+success rate eval_step 0.0000
+success rate eval_step 0.0000
+success rate eval_step 0.0000
+Appended training metrics to /home/athenaik/GRPO_test/RLKGF/Qwen25_3b_Test/dxy_dispre_model_save/2025.10.02-11-58-07/training_metrics.json
