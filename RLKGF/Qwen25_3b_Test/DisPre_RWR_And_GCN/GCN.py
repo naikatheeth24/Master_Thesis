@@ -80,70 +80,138 @@ class GCNReward(nn.Module):
                 output += 1
         return output, loss
 
+    # def forward(self, label, adj, mask):
+    #     x = torch.tensor([[i for i in range(self.kg_node)] for l in range(mask.size()[0])]).to(self.device)
+    #     x_embed = self.sym_representation(x)
+    #     x = F.relu(self.gc1(x_embed, adj))  # 第一层，并用relu激活
+    #     # x = F.dropout(x, self.dropout, training=self.training)#丢弃一部分特征
+    #     x = self.gc2(x, adj)  # 第二层
+    #     sym_rep = torch.matmul(mask, x).squeeze(1)
+    #     # 计算相似度
+    #     disease_mask = torch.ones(self.dis_num).to(self.device).reshape(-1, self.dis_num)
+    #     symptoms_mask = torch.ones(self.sym_num).to(self.device).reshape(-1, self.sym_num)
+    #     kg_matrix = torch.zeros(1, self.kg_node, self.kg_node).to(self.device)
+    #     for s in range(adj.size()[1]):
+    #         kg_matrix[0][adj[0][s]][adj[1][s]] = 1
+    #     for i in range(kg_matrix.size(0)):
+    #         for j in range(self.dis_num):
+    #             if torch.equal(kg_matrix[i, j, :],
+    #                            torch.zeros(kg_matrix[i, j, :].size()).to(self.device)):
+    #                 disease_mask[0][j] = 0.
+    #         for k in range(self.sym_num):
+    #             if torch.equal(kg_matrix[i, k + self.dis_num, :],
+    #                            torch.zeros(kg_matrix[i, k + self.dis_num, :].size()).to(
+    #                                self.device)):
+    #                 symptoms_mask[0][k] = 0.
+    #     disease_mask_ = copy.deepcopy(disease_mask)
+    #     symptoms_mask_ = copy.deepcopy(symptoms_mask)
+    #     gcn_matrix = torch.zeros(kg_matrix.size()[0], self.kg_node - self.dis_num, self.dis_num).to(self.device)
+    #     # print(mask)
+
+    #     print("mask shape:", mask.shape)
+    #     print(f"self.dis_num={self.dis_num}, self.kg_node={self.kg_node}")
+    #     print(f"Accessing mask[0][{self.dis_num + s}]")
+
+    #     for s in range(self.kg_node - self.dis_num):
+    #         if mask[0][self.dis_num + s] == 1.:
+    #             for d in range(self.dis_num):
+    #                 # print('here')
+    #                 gcn_matrix[0][s][d] = self.cosine_similarity(x[0][self.dis_num + s], x[0][d])
+    #     # print(gcn_matrix.requires_grad)
+    #     gcn_matrix = gcn_matrix.requires_grad_()
+    #     # print(disease_mask_.requires_grad)
+    #     dis_pro = self.dis_classify(gcn_matrix, disease_mask_)
+    #     # dis_pro = dis_pro.requires_grad_()
+    #     # sym_pro = self.sym_classify(gat_sym_sym, symptoms_mask, sym_flag)
+    #     loss = self.loss_func(dis_pro, label)
+    #     # print(dis_pro.requires_grad)
+    #     # print(label.requires_grad)
+    #     # print(loss)
+    #     output_ = dis_pro.max(1)[1]
+    #     output = 0
+    #     for i in range(len(output_)):
+    #         if output_[i] == label[i]:
+    #             output += 1
+    #     return output, loss
+
     def forward(self, label, adj, mask):
         x = torch.tensor([[i for i in range(self.kg_node)] for l in range(mask.size()[0])]).to(self.device)
         x_embed = self.sym_representation(x)
-        x = F.relu(self.gc1(x_embed, adj))  # 第一层，并用relu激活
-        # x = F.dropout(x, self.dropout, training=self.training)#丢弃一部分特征
-        x = self.gc2(x, adj)  # 第二层
+        x = F.relu(self.gc1(x_embed, adj))
+        x = self.gc2(x, adj)
         sym_rep = torch.matmul(mask, x).squeeze(1)
-        # 计算相似度
+        
+        # Calculate similarity
         disease_mask = torch.ones(self.dis_num).to(self.device).reshape(-1, self.dis_num)
         symptoms_mask = torch.ones(self.sym_num).to(self.device).reshape(-1, self.sym_num)
         kg_matrix = torch.zeros(1, self.kg_node, self.kg_node).to(self.device)
+        
         for s in range(adj.size()[1]):
             kg_matrix[0][adj[0][s]][adj[1][s]] = 1
+        
         for i in range(kg_matrix.size(0)):
             for j in range(self.dis_num):
                 if torch.equal(kg_matrix[i, j, :],
-                               torch.zeros(kg_matrix[i, j, :].size()).to(self.device)):
+                            torch.zeros(kg_matrix[i, j, :].size()).to(self.device)):
                     disease_mask[0][j] = 0.
             for k in range(self.sym_num):
                 if torch.equal(kg_matrix[i, k + self.dis_num, :],
-                               torch.zeros(kg_matrix[i, k + self.dis_num, :].size()).to(
-                                   self.device)):
+                            torch.zeros(kg_matrix[i, k + self.dis_num, :].size()).to(
+                                self.device)):
                     symptoms_mask[0][k] = 0.
+        
         disease_mask_ = copy.deepcopy(disease_mask)
         symptoms_mask_ = copy.deepcopy(symptoms_mask)
-        gcn_matrix = torch.zeros(kg_matrix.size()[0], self.kg_node - self.dis_num, self.dis_num).to(self.device)
-        # print(mask)
-        for s in range(self.kg_node - self.dis_num):
-            if mask[0][self.dis_num + s] == 1.:
+        gcn_matrix = torch.zeros(kg_matrix.size()[0], self.sym_num, self.dis_num).to(self.device)
+        
+        #print("mask shape:", mask.shape)
+        #print(f"self.dis_num={self.dis_num}, self.kg_node={self.kg_node}, self.sym_num={self.sym_num}")
+        
+        # FIX: Iterate over symptom indices, not symptom count
+        for s in range(self.sym_num):  # Changed from range(self.kg_node - self.dis_num)
+            symptom_idx = self.dis_num + s  # The actual index in the mask
+            #print(f"Accessing mask[0][{symptom_idx}] (s={s})")
+            
+            if mask[0][symptom_idx] == 1.:
                 for d in range(self.dis_num):
-                    # print('here')
-                    gcn_matrix[0][s][d] = self.cosine_similarity(x[0][self.dis_num + s], x[0][d])
-        # print(gcn_matrix.requires_grad)
+                    gcn_matrix[0][s][d] = self.cosine_similarity(x[0][symptom_idx], x[0][d])
+        
         gcn_matrix = gcn_matrix.requires_grad_()
-        # print(disease_mask_.requires_grad)
         dis_pro = self.dis_classify(gcn_matrix, disease_mask_)
-        # dis_pro = dis_pro.requires_grad_()
-        # sym_pro = self.sym_classify(gat_sym_sym, symptoms_mask, sym_flag)
         loss = self.loss_func(dis_pro, label)
-        # print(dis_pro.requires_grad)
-        # print(label.requires_grad)
-        # print(loss)
+        
         output_ = dis_pro.max(1)[1]
         output = 0
         for i in range(len(output_)):
             if output_[i] == label[i]:
                 output += 1
+        
         return output, loss
 
+
+
+    # def construct_kg_index(self, kg_adj):
+    #     # sym_gcn = torch.zeros(kg_adj.size()[0], self.dis_num, self.sym_num).to(self.device)
+    #     edge_index = [[], []]
+    #     for b in range(kg_adj.size()[0]): # 1
+    #         # edge_index = [[], []]
+    #         for source_node in range(self.kg_node):
+    #             for target_node in range(self.kg_node):
+    #                 if kg_adj[b][source_node][target_node] != 0:
+    #                     edge_index[0].append(source_node)
+    #                     edge_index[1].append(target_node)
+    #         edge_index = torch.tensor(edge_index).to(self.device)
+    #     #     with torch.no_grad():
+    #     #         sym_gcn[b] = self.medical_embed.predict(edge_index)
+    #     # return sym_gcn
+    #     return edge_index
+
     def construct_kg_index(self, kg_adj):
-        # sym_gcn = torch.zeros(kg_adj.size()[0], self.dis_num, self.sym_num).to(self.device)
-        edge_index = [[], []]
-        for b in range(kg_adj.size()[0]): # 1
-            # edge_index = [[], []]
-            for source_node in range(self.kg_node):
-                for target_node in range(self.kg_node):
-                    if kg_adj[b][source_node][target_node] != 0:
-                        edge_index[0].append(source_node)
-                        edge_index[1].append(target_node)
-            edge_index = torch.tensor(edge_index).to(self.device)
-        #     with torch.no_grad():
-        #         sym_gcn[b] = self.medical_embed.predict(edge_index)
-        # return sym_gcn
+        batch_idx, row_idx, col_idx = torch.nonzero(kg_adj, as_tuple=True)
+        edge_index = torch.stack([row_idx, col_idx], dim=0).to(self.device)
         return edge_index
+
+
 
     def predict(self, adj, disease_mask, symptoms_mask, sym_flag, sym_confirm):
         with torch.no_grad():
